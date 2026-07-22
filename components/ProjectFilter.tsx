@@ -24,14 +24,14 @@ export default function ProjectFilter({ activeCategory, onSelectCategory }: Proj
                 : "text-[#4B4F72] bg-white border border-[#E3E6F7] hover:text-[#10122B] hover:border-[#2151F5]/30"
             }`}
           >
-            {category}
             {isActive && (
               <motion.div
                 layoutId="activeCategoryBg"
-                className="absolute inset-0 bg-[#2151F5] rounded-full -z-10"
+                className="absolute inset-0 bg-[#2151F5] rounded-full z-0"
                 transition={{ type: "spring", stiffness: 350, damping: 30 }}
               />
             )}
+            <span className="relative z-10">{category}</span>
           </button>
         );
       })}

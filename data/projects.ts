@@ -1,7 +1,7 @@
 export interface Project {
   id: string;
   title: string;
-  category: "Branding" | "Web" | "App" | "E-commerce";
+  category: "Branding" | "Web" | "App" | "E-commerce" | "AI";
   client: string;
   location: string;
   year: string;
@@ -12,6 +12,18 @@ export interface Project {
 }
 
 export const projectsData: Project[] = [
+  {
+    id: "nexus-ai-support-platform",
+    title: "Nexus AI Support Platform",
+    category: "AI",
+    client: "Enterprise SaaS Client",
+    location: "Kuwait City, Kuwait",
+    year: "2025",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
+    summary: "An intelligent support platform pairing a natural-language text-to-SQL engine with a real-time multi-agent chatbot that resolves customer queries and surfaces live business insights.",
+    deliverables: ["Text-to-SQL Engine", "Multi-Agent Orchestration", "Real-Time Chatbot", "Analytics Dashboard"],
+    featured: true,
+  },
   {
     id: "al-essa-medical-platform",
     title: "Al-Essa Medical Commerce",
@@ -31,7 +43,7 @@ export const projectsData: Project[] = [
     client: "Skinnovation Clinic",
     location: "Salmiya, Kuwait",
     year: "2025",
-    image: "https://images.unsplash.com/photo-1512290900676-26c2a4ed6dbd?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1556760544-74068565f05c?q=80&w=1200&auto=format&fit=crop",
     summary: "Sleek iOS and Android booking application enabling instant appointment scheduling, consultation history, and loyalty rewards.",
     deliverables: ["iOS & Android App", "UI/UX System", "Appointment Engine", "Push Notifications"],
     featured: true,
@@ -110,4 +122,4 @@ export const projectsData: Project[] = [
   }
 ];
 
-export const projectCategories = ["All", "Branding", "Web", "App", "E-commerce"] as const;
+export const projectCategories = ["All", "AI", "Branding", "Web", "App", "E-commerce"] as const;
