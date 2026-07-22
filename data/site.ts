@@ -1,0 +1,43 @@
+export const siteConfig = {
+  name: "Burhani Creation",
+  legalName: "Burhani Creation Digital Agency",
+  tagline: "Think Beyond the Wave.",
+  description: "Premier digital agency in Hawally, Kuwait. We craft high-converting web applications, mobile apps, e-commerce solutions, brand identities, and ERP systems.",
+  url: "https://burhanicreation.com",
+  ogImage: "/og-image.jpg",
+  contact: {
+    email: "info@burhanicreation.com",
+    phone: "+965 2228 0853",
+    phoneRaw: "+96522280853",
+    whatsapp: "+965 9755 8075",
+    whatsappRaw: "96597558075",
+    whatsappLink: "https://wa.me/96597558075?text=Hello%20Burhani%20Creation%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
+    address: {
+      street: "9324 Tunisia St, Al-Rifai Complex",
+      city: "Hawally",
+      country: "Kuwait",
+      formatted: "Al-Rifai Complex, 9324 Tunisia St, Hawally, Kuwait",
+      mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3478.475475765793!2d48.0062!3d29.3364!2m3!1f0!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjknMjA'11LjAiTiA0OMKwMDAnMjIuMyJF!5e0!3m2!1sen!2skw!4v1620000000000!5m2!1sen!2skw",
+    },
+    hours: "Sun – Sat: 9:00 AM – 5:00 PM (Friday Off)",
+  },
+  socials: {
+    instagram: "https://www.instagram.com/burhanicreationkw",
+    facebook: "https://www.facebook.com/profile.php?id=100092401885259",
+    whatsapp: "https://wa.me/96597558075",
+  },
+  countryCodes: [
+    { code: "+965", name: "Kuwait", flag: "🇰🇼" },
+    { code: "+966", name: "Saudi Arabia", flag: "🇸🇦" },
+    { code: "+968", name: "Oman", flag: "🇴🇲" },
+    { code: "+971", name: "UAE", flag: "🇦🇪" },
+    { code: "+973", name: "Bahrain", flag: "🇧🇭" },
+    { code: "+974", name: "Qatar", flag: "🇶🇦" },
+  ],
+  stats: [
+    { label: "Projects Delivered", value: 170, suffix: "+" },
+    { label: "Satisfied Clients", value: 45, suffix: "+" },
+    { label: "Average Client Rating", value: 4.9, suffix: " / 5.0" },
+    { label: "Years of Excellence", value: 10, suffix: "+" },
+  ],
+};
