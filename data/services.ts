@@ -75,7 +75,7 @@ export const servicesData: Service[] = [
     id: "e-commerce-development",
     slug: "e-commerce-development",
     iconName: "ShoppingBag",
-    image: "https://images.unsplash.com/photo-1556742049-0a67daf4005a?q=80&w=900&auto=format&fit=crop",
+    image: "/ecommerce-cover.png",
     title: { en: "E-Commerce Development", ar: "تطوير التجارة الإلكترونية" },
     tagline: {
       en: "Online stores built to convert and scale.",
