@@ -1,11 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { siteConfig } from "@/data/site";
+import type { Locale } from "@/lib/i18n";
+import type { Dictionary } from "@/dictionaries/en";
+import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
 
-export default function RequestQuotationSection() {
+export default function RequestQuotationSection({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const [formData, setFormData] = useState({
     fullName: "",
     countryCode: "+965",
@@ -27,12 +30,12 @@ export default function RequestQuotationSection() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName.trim()) {
-      setErrorMessage("Please enter your full name.");
+      setErrorMessage(dict.contact.errorName);
       setStatus("error");
       return;
     }
     if (!formData.phone.trim()) {
-      setErrorMessage("Please enter your phone number.");
+      setErrorMessage(dict.contact.errorPhone);
       setStatus("error");
       return;
     }
@@ -49,111 +52,54 @@ export default function RequestQuotationSection() {
 
       if (res.ok) {
         setStatus("success");
-        setFormData({
-          fullName: "",
-          countryCode: "+965",
-          phone: "",
-          email: "",
-          service: "General Inquiry",
-          details: "",
-        });
+        setFormData({ fullName: "", countryCode: "+965", phone: "", email: "", service: "General Inquiry", details: "" });
       } else {
         const errorData = await res.json();
-        setErrorMessage(errorData.error || "Failed to submit request. Please try again.");
+        setErrorMessage(errorData.error || dict.contact.errorName);
         setStatus("error");
       }
     } catch {
-      // Stub fallback success for demonstration if backend offline
       setStatus("success");
     }
   };
 
   return (
-    <section id="request-quote" className="py-20 bg-gradient-to-b from-surface via-primary-wash/50 to-surface relative overflow-hidden border-t border-hairline">
-      {/* Decorative Wave BG element */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
-        <svg className="w-full h-full" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-          <path
-            d="M0,300 Q250,150 500,300 T1000,300 L1000,1000 L0,1000 Z"
-            fill="url(#quoteGrad)"
-          />
-          <defs>
-            <linearGradient id="quoteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#0A1A3C" stopOpacity="0.05" />
-              <stop offset="100%" stopColor="#F3E6C4" stopOpacity="0.1" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="request-quote" className="py-20 bg-surface-alt border-t border-hairline">
+      <Container>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column Text */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-wash text-primary text-xs uppercase tracking-widest font-bold">
-              <span>Start Your Project</span>
-            </div>
-            
-            <h2 className="font-display text-4xl sm:text-5xl font-extrabold text-ink tracking-tight leading-tight">
-              Let’s build <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-mid to-gold">what’s next.</span>
-            </h2>
-
-            <p className="text-ink-muted text-base leading-relaxed">
-              Have a new project, mobile app idea, or website redesign in mind? Share your objectives with our Hawally team for a transparent, detailed quotation within 24 hours.
+            <p className="text-xs uppercase tracking-[0.2em] text-gold-deep font-semibold">
+              {dict.home.cta.eyebrow}
             </p>
-
-            <div className="pt-4 border-t border-hairline space-y-3 text-sm text-ink">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary" />
-                <span className="font-medium">Direct phone response & WhatsApp consultations</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-primary-mid" />
-                <span className="font-medium">Agile visual wireframes before code</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="font-medium">Localized Gulf & KNET integration experts</span>
-              </div>
-            </div>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight leading-tight">
+              {dict.home.cta.heading}
+            </h2>
+            <p className="text-ink-muted text-base leading-relaxed">
+              {dict.home.cta.subtext}
+            </p>
           </div>
 
-          {/* Right Column Form Card */}
           <div className="lg:col-span-7">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-hairline shadow-soft-lg"
-            >
+            <div className="bg-card rounded-lg p-6 sm:p-8 lg:p-10 border border-hairline">
               {status === "success" ? (
                 <div className="py-12 text-center space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-wash to-gold-wash text-primary flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-10 h-10" />
-                  </div>
-                  <h3 className="font-display text-2xl font-bold text-ink">
-                    Quotation Request Sent!
+                  <CheckCircle2 className="w-10 h-10 text-ink mx-auto" />
+                  <h3 className="font-display text-2xl font-semibold text-ink">
+                    {dict.contact.successHeading}
                   </h3>
                   <p className="text-ink-muted text-sm max-w-md mx-auto">
-                    Thank you for reaching out to Burhani Creation. Our team will review your requirements and get back to you shortly.
+                    {dict.contact.successBody}
                   </p>
-                  <button
-                    onClick={() => setStatus("idle")}
-                    className="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-mid text-white text-sm font-semibold hover:shadow-md hover:shadow-gold/20 transition-all"
-                  >
-                    Submit Another Request
-                  </button>
+                  <Button variant="outline" onClick={() => setStatus("idle")}>
+                    {dict.contact.sendAnother}
+                  </Button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Full Name */}
                     <div>
-                      <label htmlFor="fullName" className="block text-xs font-semibold text-ink uppercase tracking-wider mb-2">
-                        Full Name <span className="text-primary">*</span>
+                      <label htmlFor="fullName" className="block text-xs font-medium text-ink-muted mb-2">
+                        {dict.contact.fullName}
                       </label>
                       <input
                         type="text"
@@ -161,16 +107,14 @@ export default function RequestQuotationSection() {
                         name="fullName"
                         value={formData.fullName}
                         onChange={handleChange}
-                        placeholder="e.g. Abdullah Al-Mansoor"
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-hairline bg-surface text-ink placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white text-sm transition-all"
+                        className="w-full px-4 py-3 rounded-md border border-hairline bg-surface text-ink placeholder-ink-light focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white text-sm transition-all"
                       />
                     </div>
 
-                    {/* Phone Number with Country Select */}
                     <div>
-                      <label htmlFor="phone" className="block text-xs font-semibold text-ink uppercase tracking-wider mb-2">
-                        Phone Number <span className="text-primary">*</span>
+                      <label htmlFor="phone" className="block text-xs font-medium text-ink-muted mb-2">
+                        {dict.contact.phoneNumber}
                       </label>
                       <div className="flex gap-2">
                         <select
@@ -178,12 +122,10 @@ export default function RequestQuotationSection() {
                           name="countryCode"
                           value={formData.countryCode}
                           onChange={handleChange}
-                          className="px-2.5 py-3 rounded-xl border border-hairline bg-surface text-ink focus:outline-none focus:ring-2 focus:ring-primary text-sm font-medium shrink-0"
+                          className="px-2.5 py-3 rounded-md border border-hairline bg-surface text-ink text-sm shrink-0 focus:outline-none focus:ring-1 focus:ring-ink"
                         >
                           {siteConfig.countryCodes.map((c) => (
-                            <option key={c.code} value={c.code}>
-                              {c.flag} {c.code}
-                            </option>
+                            <option key={c.code} value={c.code}>{c.code}</option>
                           ))}
                         </select>
                         <input
@@ -192,19 +134,17 @@ export default function RequestQuotationSection() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          placeholder="9755 8075"
                           required
-                          className="w-full px-4 py-3 rounded-xl border border-hairline bg-surface text-ink placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white text-sm transition-all"
+                          className="w-full px-4 py-3 rounded-md border border-hairline bg-surface text-ink placeholder-ink-light focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white text-sm transition-all"
                         />
                       </div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    {/* Email */}
                     <div>
-                      <label htmlFor="email" className="block text-xs font-semibold text-ink uppercase tracking-wider mb-2">
-                        Email Address <span className="text-gray-400">(Optional)</span>
+                      <label htmlFor="email" className="block text-xs font-medium text-ink-muted mb-2">
+                        {dict.contact.emailAddressLabel}
                       </label>
                       <input
                         type="email"
@@ -212,38 +152,35 @@ export default function RequestQuotationSection() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="abdullah@company.kw"
-                        className="w-full px-4 py-3 rounded-xl border border-hairline bg-surface text-ink placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white text-sm transition-all"
+                        className="w-full px-4 py-3 rounded-md border border-hairline bg-surface text-ink placeholder-ink-light focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white text-sm transition-all"
                       />
                     </div>
 
-                    {/* Quotation Service Select */}
                     <div>
-                      <label htmlFor="service" className="block text-xs font-semibold text-ink uppercase tracking-wider mb-2">
-                        Quotation For
+                      <label htmlFor="service" className="block text-xs font-medium text-ink-muted mb-2">
+                        {dict.services.hero.eyebrow}
                       </label>
                       <select
                         id="service"
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl border border-hairline bg-surface text-ink focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white text-sm transition-all"
+                        className="w-full px-4 py-3 rounded-md border border-hairline bg-surface text-ink focus:outline-none focus:ring-1 focus:ring-ink text-sm transition-all"
                       >
-                        <option value="General Inquiry">General Inquiry</option>
-                        <option value="Logo & Full Branding">Logo & Full Branding</option>
-                        <option value="E-commerce & KNET">E-commerce & KNET</option>
-                        <option value="Mobile Application">Mobile Application (iOS/Android)</option>
-                        <option value="Website Development">Website Development</option>
-                        <option value="Custom Platform / ERP">Custom Platform / ERP</option>
-                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="General Inquiry">{lang === "ar" ? "استفسار عام" : "General inquiry"}</option>
+                        <option value="Branding">{lang === "ar" ? "الهوية التجارية" : "Branding"}</option>
+                        <option value="E-commerce">{lang === "ar" ? "تجارة إلكترونية" : "E-commerce"}</option>
+                        <option value="Mobile App">{lang === "ar" ? "تطبيق جوال" : "Mobile app"}</option>
+                        <option value="Website">{lang === "ar" ? "موقع إلكتروني" : "Website"}</option>
+                        <option value="ERP">{lang === "ar" ? "نظام ERP" : "ERP platform"}</option>
+                        <option value="UI/UX">{lang === "ar" ? "تصميم واجهات" : "UI/UX design"}</option>
                       </select>
                     </div>
                   </div>
 
-                  {/* Project Details Textarea */}
                   <div>
-                    <label htmlFor="details" className="block text-xs font-semibold text-ink uppercase tracking-wider mb-2">
-                      Tell us about your project <span className="text-gray-400">(Optional)</span>
+                    <label htmlFor="details" className="block text-xs font-medium text-ink-muted mb-2">
+                      {dict.contact.message}
                     </label>
                     <textarea
                       id="details"
@@ -251,44 +188,37 @@ export default function RequestQuotationSection() {
                       rows={3}
                       value={formData.details}
                       onChange={handleChange}
-                      placeholder="Briefly describe your goals, budget, or preferred timeline..."
-                      className="w-full px-4 py-3 rounded-xl border border-hairline bg-surface text-ink placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white text-sm transition-all resize-none"
+                      placeholder={dict.contact.messagePlaceholder}
+                      className="w-full px-4 py-3 rounded-md border border-hairline bg-surface text-ink placeholder-ink-light focus:outline-none focus:ring-1 focus:ring-ink focus:bg-white text-sm transition-all resize-none"
                     />
                   </div>
 
-                  {/* Error Notification */}
                   {status === "error" && (
-                    <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
+                    <div className="p-3 rounded-md bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
                       <AlertCircle className="w-4 h-4 shrink-0" />
                       <span>{errorMessage}</span>
                     </div>
                   )}
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-primary via-primary-mid to-gold bg-[length:180%_100%] bg-left text-white font-bold text-base shadow-md shadow-primary/20 hover:bg-right hover:shadow-lg hover:shadow-gold/25 transition-all duration-500 flex items-center justify-center gap-2 disabled:opacity-70 active:scale-[0.99]"
-                  >
+                  <Button type="submit" disabled={status === "submitting"} className="w-full">
                     {status === "submitting" ? (
                       <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        <span>Sending Request...</span>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>{dict.contact.sending}</span>
                       </>
                     ) : (
                       <>
-                        <span>Request quotation</span>
+                        <span>{dict.common.getQuote}</span>
                         <Send className="w-4 h-4" />
                       </>
                     )}
-                  </button>
+                  </Button>
                 </form>
               )}
-            </motion.div>
+            </div>
           </div>
-
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

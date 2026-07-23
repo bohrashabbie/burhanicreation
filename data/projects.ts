@@ -1,125 +1,190 @@
+import { Bilingual, BilingualList } from "@/lib/i18n";
+
+export type ProjectCategory = "Branding" | "Web" | "App" | "E-commerce" | "AI";
+
 export interface Project {
   id: string;
-  title: string;
-  category: "Branding" | "Web" | "App" | "E-commerce" | "AI";
+  category: ProjectCategory;
   client: string;
   location: string;
   year: string;
   image: string;
-  summary: string;
-  deliverables: string[];
+  title: Bilingual;
+  summary: Bilingual;
+  deliverables: BilingualList;
   featured?: boolean;
 }
+
+export const projectCategoryLabels: Record<ProjectCategory | "All", Bilingual> = {
+  All: { en: "All", ar: "الكل" },
+  Branding: { en: "Branding", ar: "الهوية التجارية" },
+  Web: { en: "Web", ar: "الويب" },
+  App: { en: "App", ar: "تطبيقات" },
+  "E-commerce": { en: "E-commerce", ar: "تجارة إلكترونية" },
+  AI: { en: "AI", ar: "الذكاء الاصطناعي" },
+};
 
 export const projectsData: Project[] = [
   {
     id: "nexus-ai-support-platform",
-    title: "Nexus AI Support Platform",
     category: "AI",
     client: "Enterprise SaaS Client",
     location: "Kuwait City, Kuwait",
     year: "2025",
     image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=1200&auto=format&fit=crop",
-    summary: "An intelligent support platform pairing a natural-language text-to-SQL engine with a real-time multi-agent chatbot that resolves customer queries and surfaces live business insights.",
-    deliverables: ["Text-to-SQL Engine", "Multi-Agent Orchestration", "Real-Time Chatbot", "Analytics Dashboard"],
+    title: { en: "Nexus AI Support Platform", ar: "منصة Nexus للدعم بالذكاء الاصطناعي" },
+    summary: {
+      en: "An AI support platform combining a natural-language query engine with a real-time chatbot that resolves customer questions and surfaces live business data.",
+      ar: "منصة دعم بالذكاء الاصطناعي تجمع بين محرك استعلامات بلغة طبيعية ومحادثة آلية فورية تحل استفسارات العملاء وتوفر بيانات أعمال حية.",
+    },
+    deliverables: {
+      en: ["Text-to-SQL engine", "Multi-agent orchestration", "Real-time chatbot", "Analytics dashboard"],
+      ar: ["محرك تحويل النص إلى استعلام SQL", "تنسيق وكلاء متعددين", "محادثة آلية فورية", "لوحة تحليلات"],
+    },
     featured: true,
   },
   {
     id: "al-essa-medical-platform",
-    title: "Al-Essa Medical Commerce",
     category: "E-commerce",
     client: "Al-Essa Healthcare Group",
     location: "Kuwait City, Kuwait",
     year: "2025",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
-    summary: "Comprehensive digital transformation and custom e-commerce solution with KNET integration for a leading Kuwait medical supplier.",
-    deliverables: ["E-Commerce Platform", "KNET Payment Hub", "Inventory Sync", "Mobile Web App"],
+    title: { en: "Al-Essa Medical Commerce", ar: "منصة الإيصاء الطبية للتجارة الإلكترونية" },
+    summary: {
+      en: "A custom e-commerce platform with KNET integration, built for a leading Kuwait medical supplier.",
+      ar: "منصة تجارة إلكترونية مخصصة مع دمج بوابة كي نت، أُنجزت لمورد طبي رائد في الكويت.",
+    },
+    deliverables: {
+      en: ["E-commerce platform", "KNET payment hub", "Inventory sync", "Mobile web app"],
+      ar: ["منصة تجارة إلكترونية", "مركز دفع كي نت", "مزامنة المخزون", "تطبيق ويب للجوال"],
+    },
     featured: true,
   },
   {
     id: "skinnovation-beauty-app",
-    title: "Skinnovation Clinic App",
     category: "App",
     client: "Skinnovation Clinic",
     location: "Salmiya, Kuwait",
     year: "2025",
     image: "https://images.unsplash.com/photo-1556760544-74068565f05c?q=80&w=1200&auto=format&fit=crop",
-    summary: "Sleek iOS and Android booking application enabling instant appointment scheduling, consultation history, and loyalty rewards.",
-    deliverables: ["iOS & Android App", "UI/UX System", "Appointment Engine", "Push Notifications"],
+    title: { en: "Skinnovation Clinic App", ar: "تطبيق عيادة Skinnovation" },
+    summary: {
+      en: "An iOS and Android booking app for appointment scheduling, consultation history, and loyalty rewards.",
+      ar: "تطبيق حجز لنظامي iOS و Android لجدولة المواعيد وسجل الاستشارات وبرنامج الولاء.",
+    },
+    deliverables: {
+      en: ["iOS & Android app", "UI/UX system", "Appointment engine", "Push notifications"],
+      ar: ["تطبيق iOS و Android", "نظام واجهة وتجربة مستخدم", "محرك حجز المواعيد", "إشعارات فورية"],
+    },
     featured: true,
   },
   {
     id: "virtus-corporate-identity",
-    title: "Virtus Brand System",
     category: "Branding",
     client: "Virtus Holding",
     location: "Kuwait",
     year: "2024",
     image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop",
-    summary: "Rebranding campaign for Virtus Group including editorial typography, stationery, digital assets, and corporate brand guidelines.",
-    deliverables: ["Logo & Visual Identity", "Brand Guidelines", "Stationery Kit", "Digital Assets"],
+    title: { en: "Virtus Brand System", ar: "هوية Virtus التجارية" },
+    summary: {
+      en: "A rebrand for Virtus Group covering typography, stationery, digital assets, and brand guidelines.",
+      ar: "إعادة تصميم هوية مجموعة Virtus شملت الطباعة والقرطاسية والأصول الرقمية ودليل الهوية.",
+    },
+    deliverables: {
+      en: ["Logo & visual identity", "Brand guidelines", "Stationery kit", "Digital assets"],
+      ar: ["شعار وهوية بصرية", "دليل الهوية", "طقم قرطاسية", "أصول رقمية"],
+    },
     featured: true,
   },
   {
     id: "waseet-pools-web-portal",
-    title: "Waseet Pools Corporate Web",
     category: "Web",
     client: "Waseet Pools Co.",
     location: "Shuwaikh, Kuwait",
     year: "2024",
     image: "https://images.unsplash.com/photo-1572331165267-854da2b10ccc?q=80&w=1200&auto=format&fit=crop",
-    summary: "High-performance marketing website engineered with localized SEO strategies that increased organic search lead conversions by 140%.",
-    deliverables: ["Next.js Website", "SEO Campaign", "Lead Generation Form", "CMS"],
+    title: { en: "Waseet Pools Corporate Web", ar: "موقع وسيط المسابح الإلكتروني" },
+    summary: {
+      en: "A marketing website with localized SEO that grew organic lead conversions by 140%.",
+      ar: "موقع تسويقي مع تحسين محركات بحث محلي رفع تحويلات العملاء المحتملين العضوية بنسبة 140%.",
+    },
+    deliverables: {
+      en: ["Next.js website", "SEO campaign", "Lead generation form", "CMS"],
+      ar: ["موقع Next.js", "حملة تحسين محركات البحث", "نموذج توليد العملاء المحتملين", "نظام إدارة محتوى"],
+    },
     featured: true,
   },
   {
     id: "kerala-restaurant-group",
-    title: "Kerala Express Mobile Ordering",
     category: "App",
     client: "Kerala Express Group",
     location: "Hawally, Kuwait",
     year: "2024",
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1200&auto=format&fit=crop",
-    summary: "Fast, localized food ordering application for iOS and Android featuring live order tracking and multi-branch menu routing.",
-    deliverables: ["Mobile App", "POS Integration", "WhatsApp Notifications"],
+    title: { en: "Kerala Express Mobile Ordering", ar: "تطبيق طلبات Kerala Express" },
+    summary: {
+      en: "A food ordering app for iOS and Android with live order tracking and multi-branch menu routing.",
+      ar: "تطبيق طلب طعام لنظامي iOS و Android مع تتبع الطلبات الحي وتوجيه القوائم متعددة الفروع.",
+    },
+    deliverables: {
+      en: ["Mobile app", "POS integration", "WhatsApp notifications"],
+      ar: ["تطبيق جوال", "ربط نقاط البيع", "إشعارات واتساب"],
+    },
     featured: false,
   },
   {
     id: "vintage-poster-editorial",
-    title: "Vintage Poster & Graphic Art",
     category: "Branding",
     client: "Burhani Creative Showcase",
     location: "Hawally, Kuwait",
     year: "2024",
     image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=1200&auto=format&fit=crop",
-    summary: "Tactile print and digital poster design collection combining classical typographic layouts with contemporary Gulf motifs.",
-    deliverables: ["Graphic Design", "Print Mockups", "Typography"],
+    title: { en: "Vintage Poster & Graphic Art", ar: "ملصقات وأعمال فنية بطابع كلاسيكي" },
+    summary: {
+      en: "A print and digital poster collection combining classical typography with contemporary Gulf motifs.",
+      ar: "مجموعة ملصقات مطبوعة ورقمية تجمع بين الطباعة الكلاسيكية وموتيفات خليجية معاصرة.",
+    },
+    deliverables: {
+      en: ["Graphic design", "Print mockups", "Typography"],
+      ar: ["تصميم جرافيك", "نماذج طباعة", "طباعة نصية"],
+    },
     featured: false,
   },
   {
     id: "double-color-paper-portrait",
-    title: "Double Color & Paper Portrait",
     category: "Branding",
     client: "Burhani Studios",
     location: "Kuwait",
     year: "2024",
     image: "https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop",
-    summary: "Minimalist duotone brand identity exploration and paper art installation for luxury retail concept packaging.",
-    deliverables: ["Packaging Design", "Visual Concept", "Duotone Art"],
+    title: { en: "Double Color & Paper Portrait", ar: "هوية ثنائية اللون وتركيب ورقي" },
+    summary: {
+      en: "A duotone brand identity and paper art installation for a luxury retail packaging concept.",
+      ar: "هوية بصرية ثنائية اللون وتركيب فني ورقي لمفهوم تغليف تجزئة فاخر.",
+    },
+    deliverables: {
+      en: ["Packaging design", "Visual concept", "Duotone art"],
+      ar: ["تصميم تغليف", "مفهوم بصري", "فن ثنائي اللون"],
+    },
     featured: false,
   },
   {
     id: "glued-poster-mockup-series",
-    title: "Glued Poster Campaign",
     category: "Web",
     client: "Metropolitan Urban Series",
     location: "Kuwait City",
     year: "2023",
     image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop",
-    summary: "Interactive digital showcase and web gallery created for urban design projects and outdoor marketing mockups.",
-    deliverables: ["Web Gallery", "Interactive UI", "Animation"],
+    title: { en: "Glued Poster Campaign", ar: "حملة الملصقات اللاصقة" },
+    summary: {
+      en: "A web gallery showcasing urban design projects and outdoor marketing mockups.",
+      ar: "معرض ويب لمشاريع تصميم حضري ونماذج تسويق خارجي.",
+    },
+    deliverables: {
+      en: ["Web gallery", "Interactive UI", "Animation"],
+      ar: ["معرض ويب", "واجهة تفاعلية", "رسوم متحركة"],
+    },
     featured: false,
-  }
+  },
 ];
-
-export const projectCategories = ["All", "AI", "Branding", "Web", "App", "E-commerce"] as const;

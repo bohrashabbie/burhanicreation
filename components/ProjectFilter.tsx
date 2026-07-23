@@ -1,37 +1,33 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { projectCategories } from "@/data/projects";
+import { projectCategoryLabels } from "@/data/projects";
+import type { Locale } from "@/lib/i18n";
 
 interface ProjectFilterProps {
+  categories: readonly string[];
   activeCategory: string;
   onSelectCategory: (cat: string) => void;
+  lang: Locale;
 }
 
-export default function ProjectFilter({ activeCategory, onSelectCategory }: ProjectFilterProps) {
+export default function ProjectFilter({ categories, activeCategory, onSelectCategory, lang }: ProjectFilterProps) {
   return (
     <div className="flex flex-wrap items-center justify-center gap-2">
-      {projectCategories.map((category) => {
+      {categories.map((category) => {
         const isActive = activeCategory === category;
+        const label = projectCategoryLabels[category as keyof typeof projectCategoryLabels][lang];
         return (
           <button
             key={category}
             onClick={() => onSelectCategory(category)}
-            className={`relative px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-md text-sm border transition-colors ${
               isActive
-                ? "text-white shadow-md shadow-primary/20"
-                : "text-ink-muted bg-white border border-hairline hover:text-ink hover:border-primary/30"
+                ? "bg-ink text-white border-ink"
+                : "bg-transparent text-ink-muted border-hairline hover:border-ink/40 hover:text-ink"
             }`}
           >
-            {isActive && (
-              <motion.div
-                layoutId="activeCategoryBg"
-                className="absolute inset-0 bg-primary rounded-full z-0"
-                transition={{ type: "spring", stiffness: 350, damping: 30 }}
-              />
-            )}
-            <span className="relative z-10">{category}</span>
+            {label}
           </button>
         );
       })}

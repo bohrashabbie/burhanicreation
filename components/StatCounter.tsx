@@ -1,43 +1,25 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 import { siteConfig } from "@/data/site";
-import { Award, CheckCircle, Star, Clock } from "lucide-react";
+import type { Locale } from "@/lib/i18n";
+import Container from "@/components/ui/Container";
+import Reveal from "@/components/ui/Reveal";
 
-const statIcons = [Award, CheckCircle, Star, Clock];
-
-export default function StatCounter() {
+export default function StatCounter({ lang }: { lang: Locale }) {
   return (
-    <section className="py-16 bg-surface border-b border-hairline">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-          {siteConfig.stats.map((stat, idx) => {
-            const Icon = statIcons[idx % statIcons.length];
-            return (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-hairline shadow-soft hover:border-primary/30 transition-all duration-300 group text-center sm:text-start"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-primary-wash text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
-                  <Icon className="w-6 h-6" />
-                </div>
-                <div className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink tracking-tight">
-                  {stat.value}
-                  <span className="text-primary">{stat.suffix}</span>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-ink-muted">
-                  {stat.label}
-                </p>
-              </motion.div>
-            );
-          })}
+    <section className="py-16 bg-card border-b border-hairline overflow-hidden">
+      <Container>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          {siteConfig.stats.map((stat, idx) => (
+            <Reveal key={stat.label[lang]} delay={idx * 0.08} y={16} className="text-center sm:text-start">
+              <div className="font-display text-3xl sm:text-4xl font-semibold text-ink tracking-tight">
+                {stat.value}
+                <span className="text-gold-deep">{stat.suffix}</span>
+              </div>
+              <p className="mt-1.5 text-xs sm:text-sm text-ink-muted">{stat.label[lang]}</p>
+            </Reveal>
+          ))}
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

@@ -1,10 +1,12 @@
+import { Bilingual } from "@/lib/i18n";
+
 export interface Testimonial {
   id: string;
-  quote: string;
   author: string;
-  role: string;
+  role: Bilingual;
   company: string;
   location: string;
+  quote: Bilingual;
   rating: number;
   featured?: boolean;
 }
@@ -12,9 +14,12 @@ export interface Testimonial {
 export const testimonialsData: Testimonial[] = [
   {
     id: "waseet-pools",
-    quote: "One of the most promising digital & SEO agencies in Kuwait. They matched our business objectives in terms of their services and core competencies, which resulted in a boost for our business. Recommended to all.",
+    quote: {
+      en: "Burhani Creation understood what we needed and delivered on it. Our SEO and digital presence improved noticeably within a few months.",
+      ar: "فهم فريق برهاني كرييشن احتياجاتنا ونفّذها بدقة. تحسّن حضورنا الرقمي وأداء تحسين محركات البحث بشكل ملحوظ خلال أشهر قليلة.",
+    },
     author: "Eng. Mubarak Al-Fadli",
-    role: "Managing Director",
+    role: { en: "Managing Director", ar: "المدير الإداري" },
     company: "Waseet Pools Co.",
     location: "Shuwaikh, Kuwait",
     rating: 5,
@@ -22,9 +27,12 @@ export const testimonialsData: Testimonial[] = [
   },
   {
     id: "skinnovation",
-    quote: "Burhani Creation designed our mobile booking app with extreme precision. The team delivered interactive UI wireframes before writing code, making the whole process effortless and transparent.",
+    quote: {
+      en: "The team designed our booking app carefully, sharing interactive wireframes before writing any code. The process was transparent from start to finish.",
+      ar: "صمّم الفريق تطبيق الحجز الخاص بنا بعناية، وشاركنا نماذج تفاعلية للواجهة قبل كتابة أي كود. كانت العملية شفافة من البداية للنهاية.",
+    },
     author: "Dr. Reem Al-Sabah",
-    role: "Clinical Director",
+    role: { en: "Clinical Director", ar: "المديرة الطبية" },
     company: "Skinnovation Clinic",
     location: "Salmiya, Kuwait",
     rating: 5,
@@ -32,9 +40,12 @@ export const testimonialsData: Testimonial[] = [
   },
   {
     id: "al-essa-health",
-    quote: "Their team built our e-commerce site with seamless KNET payment routing and automated inventory updates. Our online order volume grew significantly within the first quarter.",
+    quote: {
+      en: "They built our e-commerce site with KNET payment integration and automated inventory updates. Our online orders grew significantly in the first quarter.",
+      ar: "بنوا موقع التجارة الإلكترونية الخاص بنا مع دمج بوابة كي نت وتحديثات مخزون تلقائية. نما حجم طلباتنا عبر الإنترنت بشكل ملحوظ خلال الربع الأول.",
+    },
     author: "Tariq Al-Essa",
-    role: "Operations Manager",
+    role: { en: "Operations Manager", ar: "مدير العمليات" },
     company: "Al-Essa Healthcare Group",
     location: "Kuwait City",
     rating: 5,
@@ -42,12 +53,15 @@ export const testimonialsData: Testimonial[] = [
   },
   {
     id: "kerala-express",
-    quote: "Fast response, highly skilled developers in Hawally, and clear communication throughout our mobile ordering app launch. We couldn't be happier with the outcome.",
+    quote: {
+      en: "Quick responses and clear communication throughout our app launch. We're happy with how it turned out.",
+      ar: "استجابة سريعة وتواصل واضح طوال إطلاق تطبيق الطلبات الخاص بنا. نحن راضون تمامًا عن النتيجة.",
+    },
     author: "Faisal Al-Kandari",
-    role: "Partner",
+    role: { en: "Partner", ar: "شريك" },
     company: "Kerala Express Group",
     location: "Hawally, Kuwait",
     rating: 5,
     featured: false,
-  }
+  },
 ];
