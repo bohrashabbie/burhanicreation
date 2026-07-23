@@ -5,6 +5,8 @@ export interface Service {
   slug: string;
   iconName: string;
   image: string;
+  /** Accent colour (hex) for the icon badge and card banner tint. */
+  accent: string;
   title: Bilingual;
   tagline: Bilingual;
   description: Bilingual;
@@ -20,6 +22,7 @@ export const servicesData: Service[] = [
     slug: "mobile-app-development",
     iconName: "Smartphone",
     image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?q=80&w=900&auto=format&fit=crop",
+    accent: "#2563eb",
     title: { en: "Mobile App Development", ar: "تطوير تطبيقات الجوال" },
     tagline: {
       en: "Native iOS and Android apps built for performance and growth.",
@@ -48,6 +51,7 @@ export const servicesData: Service[] = [
     slug: "website-development",
     iconName: "Globe",
     image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop",
+    accent: "#0891b2",
     title: { en: "Website Development", ar: "تطوير المواقع الإلكترونية" },
     tagline: {
       en: "Fast, modern websites built to convert.",
@@ -76,6 +80,7 @@ export const servicesData: Service[] = [
     slug: "e-commerce-development",
     iconName: "ShoppingBag",
     image: "/ecommerce-cover.png",
+    accent: "#d97706",
     title: { en: "E-Commerce Development", ar: "تطوير التجارة الإلكترونية" },
     tagline: {
       en: "Online stores built to convert and scale.",
@@ -104,6 +109,7 @@ export const servicesData: Service[] = [
     slug: "ui-ux-design",
     iconName: "Layout",
     image: "https://images.unsplash.com/photo-1559028006-448665bd7c7f?q=80&w=900&auto=format&fit=crop",
+    accent: "#db2777",
     title: { en: "UI/UX Design", ar: "تصميم واجهات وتجربة المستخدم" },
     tagline: {
       en: "Interface design grounded in research, not templates.",
@@ -132,6 +138,7 @@ export const servicesData: Service[] = [
     slug: "erp-solutions",
     iconName: "Database",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop",
+    accent: "#059669",
     title: { en: "ERP Solutions", ar: "حلول تخطيط موارد المؤسسات" },
     tagline: {
       en: "Business software built around how you actually work.",
@@ -154,5 +161,63 @@ export const servicesData: Service[] = [
       ar: ["صيغ ضريبة وفوترة كويتية", "صلاحيات وصول حسب الدور", "وصول سحابي من أي جهاز", "تقارير وتصدير بيانات مخصصة"],
     },
     techStack: ["Node.js", "Python", "PostgreSQL", "Docker", "Tailwind UI", "REST APIs"],
+  },
+  {
+    id: "ai-solutions",
+    slug: "ai-solutions",
+    iconName: "Sparkles",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=900&auto=format&fit=crop",
+    accent: "#7c3aed",
+    title: { en: "AI Solutions", ar: "حلول الذكاء الاصطناعي" },
+    tagline: {
+      en: "Practical AI that answers, automates, and predicts.",
+      ar: "ذكاء اصطناعي عملي يجيب ويؤتمت ويتنبأ.",
+    },
+    description: {
+      en: "Custom AI assistants, chatbots, and data engines that plug into your business — from natural-language search to automated workflows.",
+      ar: "مساعدون أذكياء ومحادثات آلية ومحركات بيانات مخصصة تندمج مع عملك — من البحث بلغة طبيعية إلى أتمتة سير العمل.",
+    },
+    fullDescription: {
+      en: "We build AI features that solve real business problems: support chatbots trained on your content, text-to-SQL query engines, document processing, and multi-agent automation — integrated with the tools your team already uses, in Arabic and English.",
+      ar: "نبني ميزات ذكاء اصطناعي تحل مشكلات أعمال حقيقية: محادثات دعم مدرَّبة على محتواك، ومحركات تحويل النص إلى استعلام SQL، ومعالجة المستندات، وأتمتة متعددة الوكلاء — مدمجة مع الأدوات التي يستخدمها فريقك بالفعل، بالعربية والإنجليزية.",
+    },
+    deliverables: {
+      en: ["AI chatbot & assistant", "Natural-language data search", "Document & workflow automation", "Model & prompt engineering", "Secure private deployment"],
+      ar: ["محادثة ومساعد ذكي", "بحث في البيانات بلغة طبيعية", "أتمتة المستندات وسير العمل", "هندسة النماذج والأوامر", "نشر خاص وآمن"],
+    },
+    features: {
+      en: ["Trained on your own data", "Arabic & English understanding", "Human-in-the-loop controls", "Analytics on every conversation"],
+      ar: ["مدرَّب على بياناتك الخاصة", "فهم للعربية والإنجليزية", "تحكم بإشراف بشري", "تحليلات لكل محادثة"],
+    },
+    techStack: ["OpenAI", "LangChain", "Python", "Vector DB", "Next.js", "Node.js"],
+  },
+  {
+    id: "various-apps",
+    slug: "various-apps",
+    iconName: "LayoutGrid",
+    image: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?q=80&w=900&auto=format&fit=crop",
+    accent: "#ea580c",
+    title: { en: "Various Apps", ar: "تطبيقات متنوعة" },
+    tagline: {
+      en: "Booking, delivery, POS, and everything in between.",
+      ar: "حجوزات وتوصيل ونقاط بيع وكل ما بينها.",
+    },
+    description: {
+      en: "Purpose-built applications for any workflow — booking systems, delivery apps, POS, portals, and internal tools tailored to how you operate.",
+      ar: "تطبيقات مصممة لأي سير عمل — أنظمة حجز وتطبيقات توصيل ونقاط بيع وبوابات وأدوات داخلية مصممة على طريقة عملك.",
+    },
+    fullDescription: {
+      en: "Not every idea fits a template. We design and build custom applications of every kind — restaurant ordering, appointment booking, delivery and logistics, membership portals, and internal dashboards — as fast, reliable products your customers and team actually enjoy using.",
+      ar: "ليست كل فكرة تناسب قالبًا جاهزًا. نصمم ونبني تطبيقات مخصصة من كل نوع — طلبات المطاعم، وحجز المواعيد، والتوصيل واللوجستيات، وبوابات العضوية، ولوحات التحكم الداخلية — كمنتجات سريعة وموثوقة يستمتع عملاؤك وفريقك باستخدامها.",
+    },
+    deliverables: {
+      en: ["Booking & scheduling apps", "Delivery & logistics apps", "POS & retail systems", "Membership & loyalty portals", "Custom internal tools"],
+      ar: ["تطبيقات حجز وجدولة", "تطبيقات توصيل ولوجستيات", "أنظمة نقاط بيع وتجزئة", "بوابات عضوية وولاء", "أدوات داخلية مخصصة"],
+    },
+    features: {
+      en: ["Built for web and mobile", "Local payment & WhatsApp ready", "Scales with your business", "Bilingual Arabic / English"],
+      ar: ["مبني للويب والجوال", "جاهز للدفع المحلي وواتساب", "قابل للتوسع مع نمو عملك", "ثنائي اللغة عربي / إنجليزي"],
+    },
+    techStack: ["React Native", "Next.js", "Node.js", "PostgreSQL", "Firebase", "KNET"],
   },
 ];

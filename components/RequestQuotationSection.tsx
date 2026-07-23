@@ -1,7 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import React, { useState, useRef } from "react";
+import {
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  ArrowUpRight,
+  Check,
+  Globe,
+  Smartphone,
+  ShoppingBag,
+  Palette,
+  Sparkles,
+  Database,
+  PenTool,
+  Bike,
+  TrendingUp,
+  Lightbulb,
+} from "lucide-react";
 import { siteConfig } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/dictionaries/en";
@@ -20,6 +37,43 @@ export default function RequestQuotationSection({ lang, dict }: { lang: Locale; 
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [activeProblem, setActiveProblem] = useState<number | null>(null);
+
+  const formCardRef = useRef<HTMLDivElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+
+  const problems = dict.home.cta.problems;
+
+  // Visual identity per statement (parallel to dict order) — keeps the
+  // imaginative styling in code without bloating the dictionary.
+  const problemStyles = [
+    { icon: Globe, accent: "#0891b2" },
+    { icon: Smartphone, accent: "#2563eb" },
+    { icon: ShoppingBag, accent: "#d97706" },
+    { icon: Palette, accent: "#db2777" },
+    { icon: Sparkles, accent: "#7c3aed" },
+    { icon: Database, accent: "#059669" },
+    { icon: PenTool, accent: "#e11d48" },
+    { icon: Bike, accent: "#ea580c" },
+    { icon: TrendingUp, accent: "#16a34a" },
+    { icon: Lightbulb, accent: "#e07a26" },
+  ];
+
+  const selectProblem = (index: number) => {
+    const problem = problems[index];
+    setActiveProblem(index);
+    setStatus("idle");
+    setFormData((prev) => ({
+      ...prev,
+      service: problem.service,
+      details: problem.q[lang],
+    }));
+    // Bring the form into view and focus the first empty field
+    requestAnimationFrame(() => {
+      formCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      nameInputRef.current?.focus({ preventScroll: true });
+    });
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -66,8 +120,8 @@ export default function RequestQuotationSection({ lang, dict }: { lang: Locale; 
   return (
     <section id="request-quote" className="py-20 bg-surface-alt border-t border-hairline">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-5 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-7 space-y-6">
             <p className="text-xs uppercase tracking-[0.2em] text-gold-deep font-semibold">
               {dict.home.cta.eyebrow}
             </p>
@@ -77,10 +131,70 @@ export default function RequestQuotationSection({ lang, dict }: { lang: Locale; 
             <p className="text-ink-muted text-base leading-relaxed">
               {dict.home.cta.subtext}
             </p>
+
+            <div className="pt-2">
+              <p className="text-xs uppercase tracking-widest font-semibold text-ink-light mb-4">
+                {dict.home.cta.pickPrompt}
+              </p>
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                {problems.map((problem, index) => {
+                  const isActive = activeProblem === index;
+                  const { icon: Icon, accent } = problemStyles[index] ?? problemStyles[0];
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => selectProblem(index)}
+                      aria-pressed={isActive}
+                      className={`group relative flex items-center gap-3 overflow-hidden rounded-xl border p-3 text-start transition-all duration-300 ${
+                        isActive
+                          ? "-translate-y-0.5 border-transparent shadow-soft"
+                          : "border-hairline bg-card hover:-translate-y-0.5 hover:shadow-soft"
+                      }`}
+                      style={
+                        isActive
+                          ? { backgroundColor: `${accent}12`, boxShadow: `inset 0 0 0 1.5px ${accent}` }
+                          : undefined
+                      }
+                    >
+                      {/* Icon badge */}
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors duration-300"
+                        style={{
+                          backgroundColor: isActive ? accent : `${accent}14`,
+                          color: isActive ? "#fff" : accent,
+                        }}
+                      >
+                        <Icon className="h-5 w-5" strokeWidth={1.75} />
+                      </span>
+
+                      <span className="flex-grow text-sm font-medium leading-snug text-ink">
+                        {problem.q[lang]}
+                      </span>
+
+                      {/* Corner affordance: arrow → check when active */}
+                      <span
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full transition-colors"
+                        style={{
+                          backgroundColor: isActive ? accent : "transparent",
+                          color: isActive ? "#fff" : accent,
+                        }}
+                      >
+                        {isActive ? (
+                          <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                        ) : (
+                          <ArrowUpRight className="h-4 w-4 opacity-40 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 rtl:-scale-x-100" />
+                        )}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          <div className="lg:col-span-7">
-            <div className="bg-card rounded-lg p-6 sm:p-8 lg:p-10 border border-hairline">
+          <div className="lg:col-span-5">
+            <div ref={formCardRef} className="bg-card rounded-lg p-6 sm:p-8 lg:p-10 border border-hairline">
               {status === "success" ? (
                 <div className="py-12 text-center space-y-4">
                   <CheckCircle2 className="w-10 h-10 text-ink mx-auto" />
@@ -102,6 +216,7 @@ export default function RequestQuotationSection({ lang, dict }: { lang: Locale; 
                         {dict.contact.fullName}
                       </label>
                       <input
+                        ref={nameInputRef}
                         type="text"
                         id="fullName"
                         name="fullName"
@@ -174,6 +289,8 @@ export default function RequestQuotationSection({ lang, dict }: { lang: Locale; 
                         <option value="Website">{lang === "ar" ? "موقع إلكتروني" : "Website"}</option>
                         <option value="ERP">{lang === "ar" ? "نظام ERP" : "ERP platform"}</option>
                         <option value="UI/UX">{lang === "ar" ? "تصميم واجهات" : "UI/UX design"}</option>
+                        <option value="AI">{lang === "ar" ? "حلول الذكاء الاصطناعي" : "AI solution"}</option>
+                        <option value="Various Apps">{lang === "ar" ? "تطبيق مخصص" : "Custom app"}</option>
                       </select>
                     </div>
                   </div>

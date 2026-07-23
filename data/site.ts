@@ -13,11 +13,11 @@ export const siteConfig = {
   ogImage: "/og-image.jpg",
   contact: {
     email: "info@burhanicreation.com",
-    phone: "+965 2228 0853",
-    phoneRaw: "+96522280853",
-    whatsapp: "+965 9755 8075",
-    whatsappRaw: "96597558075",
-    whatsappLink: "https://wa.me/96597558075?text=Hello%20Burhani%20Creation%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
+    phone: "+965 6072 8989",
+    phoneRaw: "+96560728989",
+    whatsapp: "+965 6072 8989",
+    whatsappRaw: "96560728989",
+    whatsappLink: "https://wa.me/96560728989?text=Hello%20Burhani%20Creation%2C%20I%20would%20like%20to%20inquire%20about%20your%20services.",
     address: {
       street: "9324 Tunisia St, Al-Rifai Complex",
       city: "Hawally",
@@ -36,7 +36,7 @@ export const siteConfig = {
   socials: {
     instagram: "https://www.instagram.com/burhanicreationkw",
     facebook: "https://www.facebook.com/profile.php?id=100092401885259",
-    whatsapp: "https://wa.me/96597558075",
+    whatsapp: "https://wa.me/96560728989",
   },
   countryCodes: [
     { code: "+965", name: "Kuwait" },

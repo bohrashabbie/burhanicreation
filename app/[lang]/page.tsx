@@ -1,13 +1,13 @@
 import React from "react";
-import HeroWave from "@/components/HeroWave";
+import HeroCarousel from "@/components/HeroCarousel";
+import AboutIntro from "@/components/AboutIntro";
 import ClientMarquee from "@/components/ClientMarquee";
 import FounderSection from "@/components/FounderSection";
 import DeviceShowcase from "@/components/DeviceShowcase";
-import ServiceCard from "@/components/ServiceCard";
+import ServicesSlider from "@/components/ServicesSlider";
 import ProjectCard from "@/components/ProjectCard";
 import StatCounter from "@/components/StatCounter";
 import Reveal from "@/components/ui/Reveal";
-import { servicesData } from "@/data/services";
 import { projectsData } from "@/data/projects";
 import { testimonialsData } from "@/data/testimonials";
 import { getDictionary, isLocale, defaultLocale, type Locale } from "@/lib/i18n";
@@ -26,7 +26,9 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
   return (
     <div>
-      <HeroWave lang={lang} dict={dict} />
+      <HeroCarousel lang={lang} dict={dict} />
+
+      <AboutIntro lang={lang} dict={dict} />
 
       <ClientMarquee lang={lang} heading={dict.home.clients.heading} />
 
@@ -46,17 +48,11 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {servicesData.map((service, idx) => (
-              <Reveal key={service.id} delay={idx * 0.08}>
-                <ServiceCard service={service} lang={lang} />
-              </Reveal>
-            ))}
-          </div>
+          <ServicesSlider lang={lang} />
         </Container>
       </section>
 
-      <DeviceShowcase dict={dict} />
+      <DeviceShowcase lang={lang} dict={dict} />
 
       {/* Featured projects */}
       <section className="py-24 bg-card border-b border-hairline">

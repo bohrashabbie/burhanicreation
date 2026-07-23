@@ -30,26 +30,54 @@ const dictionary = {
   home: {
     hero: {
       eyebrow: "Digital agency — Hawally, Kuwait",
-      heading: "Digital products built for the Gulf market.",
-      subtext: "We design and build websites, mobile apps, e-commerce platforms, and ERP systems for businesses across Kuwait and the Gulf.",
+      heading: "Digital products built for the Kuwait market.",
+      subtext: "We design and build websites, mobile apps, e-commerce platforms, and ERP systems for businesses across Kuwait.",
       ctaPrimary: "Start a project",
       ctaSecondary: "View our work",
+      slides: [
+        {
+          eyebrow: "Digital agency — Hawally, Kuwait",
+          heading: "Digital products built for the Kuwait market.",
+          subtext: "We design and build websites, mobile apps, e-commerce platforms, and ERP systems for businesses across Kuwait.",
+        },
+        {
+          eyebrow: "Web · Mobile · E-commerce",
+          heading: "Websites and apps that actually perform.",
+          subtext: "Fast, bilingual, KNET-ready products engineered to turn visitors into customers — from the first wireframe to launch.",
+        },
+        {
+          eyebrow: "AI & automation",
+          heading: "Bring AI into your business.",
+          subtext: "Custom chatbots, data engines, and automation — trained on your content and fluent in both Arabic and English.",
+        },
+      ],
+    },
+    about: {
+      eyebrow: "Who we are",
+      heading: "A Hawally studio building digital products, end to end.",
+      body: "Burhani Creation is a full-service digital agency in Kuwait. We bring design, engineering, and AI together to help businesses across Kuwait launch products that perform — websites, mobile apps, e-commerce, and custom software, all under one roof.",
+      points: [
+        "Design & engineering in one team",
+        "Bilingual Arabic & English by default",
+        "10+ years and 170+ projects delivered",
+      ],
+      cta: "More about us",
     },
     clients: {
-      heading: "Trusted by businesses across Kuwait and the Gulf",
+      heading: "Trusted by businesses across Kuwait and the kuwait",
     },
     devices: {
-      eyebrow: "Built for every screen",
-      heading: "One experience, every device.",
-      subtext: "Responsive web platforms, native mobile apps, and AI-driven dashboards — engineered to feel native everywhere.",
+      eyebrow: "Our work in action",
+      heading: "See it running on every device.",
+      subtext: "Tap through real products we've built for clients across Kuwait and the Gulf — mobile apps, websites, and AI — each shown on the device it lives on.",
       website: "Website",
       mobileApp: "Mobile app",
       aiPlatform: "AI platform",
     },
     services: {
       eyebrow: "What we do",
-      heading: "Five services, one team.",
-      subtext: "From the first wireframe to launch, we handle design, engineering, and growth under one roof.",
+      heading: "Seven services, one team.",
+      subtext: "From the first wireframe to launch, we handle design, engineering, AI, and growth under one roof.",
       cta: "View all services",
     },
     founder: {
@@ -71,8 +99,21 @@ const dictionary = {
     },
     cta: {
       eyebrow: "Start a project",
-      heading: "Tell us what you're building.",
-      subtext: "Share your goals and timeline — our Hawally team will follow up with a clear quote within one business day.",
+      heading: "What do you need help with?",
+      subtext: "Pick what fits — we'll pre-fill the form. Just add your details and send, and our Hawally team will reply within one business day.",
+      pickPrompt: "Tap a starting point",
+      problems: [
+        { q: { en: "I need a professional website", ar: "أحتاج موقعًا إلكترونيًا احترافيًا" }, service: "Website" },
+        { q: { en: "I want to build a mobile app", ar: "أريد بناء تطبيق جوال" }, service: "Mobile App" },
+        { q: { en: "I want to sell my products online", ar: "أريد بيع منتجاتي عبر الإنترنت" }, service: "E-commerce" },
+        { q: { en: "I need a brand identity & logo", ar: "أحتاج هوية تجارية وشعارًا" }, service: "Branding" },
+        { q: { en: "I want an AI chatbot or automation", ar: "أريد روبوت محادثة أو أتمتة بالذكاء الاصطناعي" }, service: "AI" },
+        { q: { en: "I need an ERP / management system", ar: "أحتاج نظام ERP لإدارة أعمالي" }, service: "ERP" },
+        { q: { en: "I need UI/UX design for my product", ar: "أحتاج تصميم واجهة وتجربة مستخدم لمنتجي" }, service: "UI/UX" },
+        { q: { en: "I want a booking or delivery app", ar: "أريد تطبيق حجز أو توصيل" }, service: "Various Apps" },
+        { q: { en: "I want to improve my Google ranking (SEO)", ar: "أريد تحسين ترتيبي في نتائج جوجل (SEO)" }, service: "Website" },
+        { q: { en: "I have a different idea to discuss", ar: "لديّ فكرة أخرى أودّ مناقشتها" }, service: "General Inquiry" },
+      ],
     },
   },
   about: {
@@ -115,7 +156,7 @@ const dictionary = {
     hero: {
       eyebrow: "Services",
       heading: "What we do.",
-      subtext: "Mobile apps, websites, e-commerce, UI/UX, and ERP systems — for businesses across Kuwait and the Gulf.",
+      subtext: "Mobile apps, websites, e-commerce, UI/UX, ERP systems, AI solutions, and custom apps — for businesses across Kuwait.",
     },
     serviceLabel: "Service",
     includedScope: "Included in this service",
@@ -126,8 +167,8 @@ const dictionary = {
   projects: {
     hero: {
       eyebrow: "Our work",
-      heading: "Selected projects.",
-      subtext: "Mobile apps, websites, e-commerce platforms, and brand identities built for businesses across Kuwait and the Gulf.",
+        heading: "Selected projects.",
+        subtext: "Mobile apps, websites, e-commerce platforms, and brand identities built for businesses across Kuwait.",
     },
     empty: "No projects in this category yet.",
   },

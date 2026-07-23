@@ -24,6 +24,15 @@ export const projectCategoryLabels: Record<ProjectCategory | "All", Bilingual> =
   AI: { en: "AI", ar: "الذكاء الاصطناعي" },
 };
 
+export const projectCategoryColors: Record<ProjectCategory | "All", string> = {
+  All: "#14181f",
+  Branding: "#db2777",
+  Web: "#0891b2",
+  App: "#2563eb",
+  "E-commerce": "#d97706",
+  AI: "#7c3aed",
+};
+
 export const projectsData: Project[] = [
   {
     id: "nexus-ai-support-platform",

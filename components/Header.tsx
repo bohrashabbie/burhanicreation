@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, MessageCircle, Globe } from "lucide-react";
 import { siteConfig } from "@/data/site";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/dictionaries/en";
@@ -69,20 +69,26 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
             })}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-5">
-            <Link
-              href={otherLocaleHref}
-              className="text-xs font-semibold uppercase tracking-widest text-ink-muted hover:text-ink transition-colors"
-            >
-              {otherLocale === "ar" ? "العربية" : "English"}
-            </Link>
+          <div className="hidden lg:flex items-center gap-4">
             <a
-              href={`tel:${siteConfig.contact.phoneRaw}`}
+              href={siteConfig.contact.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm text-ink-muted hover:text-ink transition-colors flex items-center gap-1.5"
             >
-              <Phone className="w-3.5 h-3.5" />
-              <span>{siteConfig.contact.phone}</span>
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>{dict.common.whatsapp}</span>
             </a>
+            <Link
+              href={otherLocaleHref}
+              aria-label={otherLocale === "ar" ? "التبديل إلى العربية" : "Switch to English"}
+              className="inline-flex items-center gap-1.5 rounded-full border border-ink/20 px-3.5 py-1.5 text-xs font-semibold tracking-wide text-ink hover:border-ink hover:bg-ink hover:text-white transition-colors"
+            >
+              <Globe className="w-3.5 h-3.5" />
+              <span className={otherLocale === "ar" ? "text-sm leading-none" : "uppercase tracking-widest"}>
+                {otherLocale === "ar" ? "العربية" : "English"}
+              </span>
+            </Link>
             <Button href={`/${lang}/contact`} size="md">
               {dict.common.getQuote}
             </Button>
@@ -118,16 +124,20 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
             <div className="pt-4 flex flex-col gap-3">
               <Link
                 href={otherLocaleHref}
-                className="text-center py-2.5 text-sm font-semibold uppercase tracking-widest text-ink-muted"
+                aria-label={otherLocale === "ar" ? "التبديل إلى العربية" : "Switch to English"}
+                className="flex items-center justify-center gap-2 py-3 rounded-md border border-ink/20 text-ink text-sm font-semibold"
               >
-                {otherLocale === "ar" ? "العربية" : "English"}
+                <Globe className="w-4 h-4" />
+                <span>{otherLocale === "ar" ? "العربية" : "English"}</span>
               </Link>
               <a
-                href={`tel:${siteConfig.contact.phoneRaw}`}
+                href={siteConfig.contact.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-3 rounded-md border border-hairline text-ink text-sm"
               >
-                <Phone className="w-4 h-4" />
-                <span>{siteConfig.contact.phone}</span>
+                <MessageCircle className="w-4 h-4" />
+                <span>{dict.common.whatsapp} · {siteConfig.contact.whatsapp}</span>
               </a>
               <Button href={`/${lang}/contact`} className="w-full">
                 {dict.common.getQuote}

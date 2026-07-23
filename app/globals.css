@@ -52,6 +52,15 @@
   --color-gold-wash: #f1e9d8;
   --color-gold-light: #d9c294;
 
+  /* ---- Brand orange — sourced from the circular BC emblem.
+     Used for the logo accent and small brand touches only. ---- */
+  --color-brand: #e07a26;
+  --color-brand-deep: #c1631a;
+  --color-brand-light: #f4a05a;
+  --color-brand-wash: #fbeadb;
+  /* Slate from the emblem ground — pairs with the mark */
+  --color-slate-emblem: #46535f;
+
   /* ---- Borders ---- */
   --color-hairline: #e3ddd0;
   --color-border-subtle: #d2c9b7;
@@ -119,4 +128,47 @@
 .header-surface {
   background: rgba(250, 248, 244, 0.96);
   border-bottom: 1px solid var(--color-hairline);
+}
+
+/* ============================================================
+   MARQUEE — continuous horizontal scroll for the client strip.
+   The track holds the list duplicated twice; translating by -50%
+   lands exactly on the start of the second copy for a seamless loop.
+   ============================================================ */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee {
+  display: flex;
+  inline-size: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+/* RTL scrolls the opposite direction so it still reads as "incoming" */
+[dir="rtl"] .marquee {
+  animation-name: marquee-scroll-rtl;
+}
+@keyframes marquee-scroll-rtl {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee-pause:hover .marquee {
+  animation-play-state: paused;
+}
+
+/* Hide horizontal scrollbars on snap sliders while keeping scroll */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

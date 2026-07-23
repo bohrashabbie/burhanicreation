@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { X, MapPin, Calendar } from "lucide-react";
-import { Project, projectCategoryLabels } from "@/data/projects";
+import { X, MapPin, Calendar, ArrowUpRight } from "lucide-react";
+import { Project, projectCategoryLabels, projectCategoryColors } from "@/data/projects";
 import type { Locale } from "@/lib/i18n";
 import Card from "@/components/ui/Card";
 
@@ -14,13 +14,14 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project, lang }: ProjectCardProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const color = projectCategoryColors[project.category];
 
   return (
     <>
       <Card
         as="button"
         onClick={() => setModalOpen(true)}
-        className="group text-start overflow-hidden flex flex-col h-full cursor-pointer"
+        className="group text-start overflow-hidden flex flex-col h-full cursor-pointer hover:-translate-y-1 hover:shadow-soft-lg transition-all duration-300"
       >
         <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface">
           <Image
@@ -30,8 +31,16 @@ export default function ProjectCard({ project, lang }: ProjectCardProps) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <span className="absolute top-3 start-3 px-2.5 py-1 rounded-md bg-white/95 text-ink text-xs font-medium">
+          {/* Hover veil + view affordance */}
+          <div className="absolute inset-0 bg-ink/0 transition-colors duration-300 group-hover:bg-ink/25" />
+          <span
+            className="absolute top-3 start-3 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium text-white shadow-soft"
+            style={{ backgroundColor: color }}
+          >
             {projectCategoryLabels[project.category][lang]}
+          </span>
+          <span className="absolute bottom-3 end-3 flex h-9 w-9 translate-y-2 items-center justify-center rounded-full bg-white text-ink opacity-0 shadow-soft transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+            <ArrowUpRight className="h-4 w-4 rtl:-scale-x-100" />
           </span>
         </div>
 
@@ -41,7 +50,7 @@ export default function ProjectCard({ project, lang }: ProjectCardProps) {
               <span>{project.client}</span>
               <span>{project.year}</span>
             </div>
-            <h3 className="font-display text-lg font-semibold text-ink leading-snug">
+            <h3 className="font-display text-lg font-semibold text-ink leading-snug transition-colors group-hover:text-brand">
               {project.title[lang]}
             </h3>
             <p className="mt-2 text-sm text-ink-muted line-clamp-2 leading-relaxed">
@@ -71,7 +80,7 @@ export default function ProjectCard({ project, lang }: ProjectCardProps) {
 
               <div className="p-6 sm:p-8 space-y-6">
                 <div>
-                  <span className="text-xs uppercase tracking-widest font-semibold text-gold-deep">
+                  <span className="text-xs uppercase tracking-widest font-semibold" style={{ color }}>
                     {projectCategoryLabels[project.category][lang]}
                   </span>
                   <h2 className="font-display text-2xl font-semibold text-ink mt-1">

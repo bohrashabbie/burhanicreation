@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { CheckCircle2, Smartphone, Globe, ShoppingBag, Layout, Database } from "lucide-react";
+import { CheckCircle2, Smartphone, Globe, ShoppingBag, Layout, Database, Sparkles, LayoutGrid } from "lucide-react";
 import { servicesData } from "@/data/services";
 import { getDictionary, isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 import Container from "@/components/ui/Container";
@@ -14,6 +14,8 @@ const serviceIcons: Record<string, React.ElementType> = {
   ShoppingBag,
   Layout,
   Database,
+  Sparkles,
+  LayoutGrid,
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
@@ -62,9 +64,14 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
                 >
                   <div className={`lg:col-span-7 space-y-6 ${isEven ? "" : "lg:order-2"}`}>
                     <div className="flex items-center gap-3">
-                      <Icon className="w-7 h-7 text-ink" strokeWidth={1.5} />
+                      <span
+                        className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-soft"
+                        style={{ backgroundColor: service.accent }}
+                      >
+                        <Icon className="h-5 w-5" strokeWidth={1.75} />
+                      </span>
                       <span className="text-xs uppercase tracking-wider font-semibold text-ink-light">
-                        {services.serviceLabel} 0{index + 1}
+                        {services.serviceLabel} {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
 
