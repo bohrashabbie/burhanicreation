@@ -35,34 +35,34 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[#F6F7FF]/90 backdrop-blur-md shadow-sm border-b border-[#E3E6F7] py-3.5"
-          : "bg-[#F6F7FF]/70 backdrop-blur-sm border-b border-[#E3E6F7]/60 py-5"
+          ? "bg-surface/90 backdrop-blur-md shadow-sm border-b border-hairline py-3.5"
+          : "bg-surface/70 backdrop-blur-sm border-b border-hairline/60 py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="group flex items-center gap-3">
-            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#2151F5] via-[#7B3FF2] to-[#E5389E] flex items-center justify-center text-white font-bold text-xl shadow-md shadow-[#2151F5]/25 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#E5389E]/30 transition-all duration-300">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[#2151F5] via-[#7B3FF2] to-[#E5389E] blur-md opacity-0 group-hover:opacity-60 transition-opacity duration-300 -z-10" />
+            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-primary-mid to-gold flex items-center justify-center text-white font-bold text-xl shadow-md shadow-primary/25 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-gold/30 transition-all duration-300">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary via-primary-mid to-gold blur-md opacity-0 group-hover:opacity-60 transition-opacity duration-300 -z-10" />
               <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
               </svg>
             </div>
             <div className="flex flex-col">
-              <span className="font-display text-xl font-extrabold tracking-tight text-[#10122B] group-hover:text-[#2151F5] transition-colors">
+              <span className="font-display text-xl font-extrabold tracking-tight text-ink group-hover:text-primary transition-colors">
                 Burhani Creation
               </span>
-              <span className="text-[10px] uppercase tracking-widest font-semibold text-[#E5389E] -mt-1">
+              <span className="text-[10px] uppercase tracking-widest font-semibold text-gold-deep -mt-1">
                 Think Beyond the Wave
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1 bg-white/80 p-1.5 rounded-full border border-[#E3E6F7] shadow-sm">
+          <nav className="hidden md:flex items-center gap-1 bg-white/80 p-1.5 rounded-full border border-hairline shadow-sm">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -71,15 +71,15 @@ export default function Header() {
                   href={link.href}
                   className={`relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
                     isActive
-                      ? "text-[#2151F5] font-semibold"
-                      : "text-[#4B4F72] hover:text-[#10122B] hover:bg-[#EAF0FF]/50"
+                      ? "text-primary font-semibold"
+                      : "text-ink-muted hover:text-ink hover:bg-primary-wash/50"
                   }`}
                 >
                   {link.name}
                   {isActive && (
                     <motion.div
                       layoutId="activeNavTab"
-                      className="absolute inset-0 bg-gradient-to-r from-[#EAF0FF] to-[#FDEAF7] rounded-full -z-10"
+                      className="absolute inset-0 bg-gradient-to-r from-primary-wash to-gold-wash rounded-full -z-10"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -94,14 +94,14 @@ export default function Header() {
               href={siteConfig.socials.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2.5 rounded-full border border-[#E3E6F7] bg-white text-[#10122B] hover:text-[#2151F5] hover:border-[#2151F5]/40 transition-colors"
+              className="p-2.5 rounded-full border border-hairline bg-white text-ink hover:text-primary hover:border-primary/40 transition-colors"
               title="Chat on WhatsApp"
             >
               <MessageSquare className="w-4 h-4" />
             </a>
             <a
               href="#request-quote"
-              className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#2151F5] to-[#7B3FF2] text-white font-semibold text-sm shadow-md shadow-[#2151F5]/25 hover:shadow-lg hover:shadow-[#E5389E]/30 hover:from-[#1638C2] hover:to-[#E5389E] transition-all duration-300 active:scale-95 overflow-hidden"
+              className="relative inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-mid text-white font-semibold text-sm shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-gold/30 hover:from-primary-mid hover:to-gold transition-all duration-300 active:scale-95 overflow-hidden"
             >
               <span>Get a Quote</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -111,7 +111,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2.5 rounded-xl border border-[#E3E6F7] bg-white text-[#10122B] focus:outline-none focus:ring-2 focus:ring-[#2151F5]"
+            className="md:hidden p-2.5 rounded-xl border border-hairline bg-white text-ink focus:outline-none focus:ring-2 focus:ring-primary"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -127,7 +127,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden border-b border-[#E3E6F7] bg-[#F6F7FF] px-4 pt-3 pb-6 shadow-xl"
+            className="md:hidden border-b border-hairline bg-surface px-4 pt-3 pb-6 shadow-xl"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => {
@@ -138,26 +138,26 @@ export default function Header() {
                     href={link.href}
                     className={`px-4 py-3 rounded-xl font-medium text-base transition-colors ${
                       isActive
-                        ? "bg-[#EAF0FF] text-[#2151F5] font-semibold"
-                        : "text-[#4B4F72] hover:bg-white hover:text-[#10122B]"
+                        ? "bg-primary-wash text-primary font-semibold"
+                        : "text-ink-muted hover:bg-white hover:text-ink"
                     }`}
                   >
                     {link.name}
                   </Link>
                 );
               })}
-              <div className="pt-3 mt-2 border-t border-[#E3E6F7] flex flex-col gap-3">
+              <div className="pt-3 mt-2 border-t border-hairline flex flex-col gap-3">
                 <a
                   href={`tel:${siteConfig.contact.phoneRaw}`}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl border border-[#E3E6F7] bg-white text-[#10122B] font-medium"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl border border-hairline bg-white text-ink font-medium"
                 >
-                  <Phone className="w-4 h-4 text-[#2151F5]" />
+                  <Phone className="w-4 h-4 text-primary" />
                   <span>Call {siteConfig.contact.phone}</span>
                 </a>
                 <a
                   href="#request-quote"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-[#2151F5] to-[#7B3FF2] text-white font-semibold shadow-md"
+                  className="flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-primary to-primary-mid text-white font-semibold shadow-md"
                 >
                   <span>Get a Quote</span>
                   <ArrowUpRight className="w-4 h-4" />

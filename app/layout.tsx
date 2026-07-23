@@ -1,20 +1,31 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
+import { IBM_Plex_Sans_Arabic, Readex_Pro } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RequestQuotationSection from "@/components/RequestQuotationSection";
 import { siteConfig } from "@/data/site";
 
-const bodyFont = Plus_Jakarta_Sans({
+/**
+ * Both faces ship Arabic subsets. To enable Arabic/RTL later, add
+ * "arabic" to the subsets arrays below and set <html lang="ar" dir="rtl">
+ * — no font substitution is needed, so weights and metrics stay identical
+ * across scripts.
+ *
+ * Variable names are suffixed -src because app/globals.css consumes them
+ * inside its @theme block as --font-sans / --font-display. Naming them
+ * --font-display directly would collide with the Tailwind theme token.
+ */
+const bodyFont = IBM_Plex_Sans_Arabic({
   subsets: ["latin"],
-  variable: "--font-body",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body-src",
   display: "swap",
 });
 
-const displayFont = Outfit({
+const displayFont = Readex_Pro({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-display-src",
   display: "swap",
 });
 
@@ -107,7 +118,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-sans bg-[#F6F7FF] text-[#10122B] antialiased flex flex-col min-h-screen">
+      <body className="font-sans bg-surface text-ink antialiased flex flex-col min-h-screen">
         <Header />
         <main className="flex-grow">{children}</main>
         <RequestQuotationSection />

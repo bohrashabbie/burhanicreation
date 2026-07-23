@@ -1,76 +1,144 @@
 @import "tailwindcss";
 
+/* ============================================================
+   BURHANI CREATION — THEME TOKENS
+   Palette: "Midnight Navy & Champagne Gold" (Gulf premium)
+
+   To swap the entire site palette, change ONLY the hex values
+   in the @theme block below. Every component consumes these as
+   semantic utilities (bg-primary, text-gold-deep, border-hairline…)
+   and contains no hardcoded colours.
+
+   Alternate palettes are kept at the bottom of this file.
+   ============================================================ */
+
+@theme {
+  /* ---- Typography -------------------------------------------------
+     Font families are injected by next/font in app/layout.tsx as
+     --font-body-src / --font-display-src. Both chosen faces ship
+     Arabic subsets, so enabling Arabic later is a subset change
+     in layout.tsx — not a font substitution.
+     ------------------------------------------------------------- */
+  --font-sans: var(--font-body-src), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-src), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Surfaces ---- */
+  --color-surface: #faf7f0;
+  --color-surface-alt: #f4efe4;
+  --color-card: #ffffff;
+
+  /* ---- Ink / typography ---- */
+  --color-ink: #0b1425;
+  --color-ink-muted: #4c5a75;
+  --color-ink-light: #6e7c96;
+  --color-ink-inverse: #faf7f0;
+
+  /* ---- Navy — primary brand ---- */
+  --color-primary: #0a1a3c;
+  --color-primary-mid: #16305f;
+  --color-primary-deep: #061024;
+  --color-primary-wash: #edf1f8;
+  --color-primary-light: #d8e0ee;
+
+  /* ---- Champagne gold — accent ----
+     NOTE ON CONTRAST: --color-gold (#C6A257) is 2.2:1 on ivory and
+     MUST NOT be used for text on light surfaces. Use it for borders,
+     rules, fills, large display numerals, and text on dark navy.
+     For gold-toned TEXT on light surfaces use --color-gold-deep
+     (#8A6A2F ≈ 4.7:1 on ivory) which passes WCAG AA.
+     ------------------------------------------------------------- */
+  --color-gold: #c6a257;
+  --color-gold-hover: #ad8b43;
+  --color-gold-deep: #8a6a2f;
+  --color-gold-wash: #f3e6c4;
+  --color-gold-light: #e0c88e;
+
+  /* ---- Borders ---- */
+  --color-hairline: #e4e0d3;
+  --color-border-subtle: #d5cfbd;
+}
+
 @layer base {
   :root {
-    /* Core surfaces */
-    --bg-main: #F6F7FF;
-    --card-bg: #FFFFFF;
-
-    /* Ink / typography */
-    --ink-main: #10122B;
-    --ink-muted: #4B4F72;
-    --ink-light: #6C7099;
-
-    /* Royal Blue — primary brand */
-    --blue-primary: #2151F5;
-    --blue-hover: #1638C2;
-    --blue-deep: #0E2696;
-    --blue-wash: #EAF0FF;
-    --blue-light: #D6E4FF;
-
-    /* Magenta — accent */
-    --magenta-primary: #E5389E;
-    --magenta-hover: #C22484;
-    --magenta-wash: #FDEAF7;
-    --magenta-light: #FAD3EC;
-
-    /* Borders */
-    --border-hairline: #E3E6F7;
-    --border-subtle: #D3D8F0;
-
-    /* Gradients */
-    --gradient-brand: linear-gradient(135deg, #2151F5 0%, #7B3FF2 55%, #E5389E 100%);
-    --gradient-brand-soft: linear-gradient(135deg, rgba(33,81,245,0.10) 0%, rgba(123,63,242,0.08) 55%, rgba(229,56,158,0.10) 100%);
+    /* Gradients — not expressible as @theme colour tokens */
+    --gradient-brand: linear-gradient(
+      135deg,
+      #0a1a3c 0%,
+      #16305f 55%,
+      #c6a257 100%
+    );
+    --gradient-brand-soft: linear-gradient(
+      135deg,
+      rgba(10, 26, 60, 0.1) 0%,
+      rgba(22, 48, 95, 0.08) 55%,
+      rgba(198, 162, 87, 0.14) 100%
+    );
+    --gradient-gold: linear-gradient(135deg, #c6a257 0%, #e0c88e 50%, #ad8b43 100%);
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-main);
-    color: var(--ink-main);
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: var(--color-surface);
+    color: var(--color-ink);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   body {
-    background-color: var(--bg-main);
-    color: var(--ink-main);
+    background-color: var(--color-surface);
+    color: var(--color-ink);
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /* Logical default so RTL inherits correctly */
+    text-align: start;
+  }
+
+  /* Respect reduced-motion for every decorative animation below */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
+/* ============================================================
+   SURFACE PATTERNS
+   ============================================================ */
+
 /* Dot Pattern Background */
 .bg-dot-pattern {
-  background-image: radial-gradient(#2151F5 0.75px, transparent 0.75px);
+  background-image: radial-gradient(#0a1a3c 0.75px, transparent 0.75px);
   background-size: 24px 24px;
 }
 
 /* Fine grid pattern for extra surface detail */
 .bg-grid-pattern {
   background-image:
-    linear-gradient(to right, rgba(33, 81, 245, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(33, 81, 245, 0.06) 1px, transparent 1px);
+    linear-gradient(to right, rgba(10, 26, 60, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 26, 60, 0.06) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
 /* Brand mesh gradient — layered radial blobs for hero/section backdrops */
 .bg-mesh-brand {
   background-image:
-    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(33, 81, 245, 0.14), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(229, 56, 158, 0.12), transparent 60%),
-    radial-gradient(ellipse 50% 50% at 50% 100%, rgba(123, 63, 242, 0.10), transparent 65%);
+    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(10, 26, 60, 0.13), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 85% 15%, rgba(198, 162, 87, 0.18), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 50% 100%, rgba(22, 48, 95, 0.1), transparent 65%);
+}
+
+/* Warm sand mesh — for ivory sections needing subtle depth */
+.bg-mesh-sand {
+  background-image:
+    radial-gradient(ellipse 70% 60% at 20% 0%, rgba(198, 162, 87, 0.12), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 30%, rgba(224, 200, 142, 0.14), transparent 65%);
 }
 
 /* Subtle noise/grain overlay for tactile depth */
@@ -87,6 +155,10 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* ============================================================
+   TEXT & SURFACE TREATMENTS
+   ============================================================ */
+
 /* Gradient text for brand headlines/accents */
 .text-gradient-brand {
   background-image: var(--gradient-brand);
@@ -95,39 +167,69 @@
   color: transparent;
 }
 
+.text-gradient-gold {
+  background-image: var(--gradient-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Glassmorphic backdrop effect */
 .glass-header {
-  background: rgba(246, 247, 255, 0.85);
+  background: rgba(250, 247, 240, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
 
 .glass-card-luxury {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(246, 247, 255, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(250, 247, 240, 0.9) 100%
+  );
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(227, 230, 247, 0.8);
+  border: 1px solid rgba(228, 224, 211, 0.8);
 }
 
 .glass-card-luxury:hover {
-  border-color: rgba(33, 81, 245, 0.4);
-  box-shadow: 0 20px 40px -12px rgba(33, 81, 245, 0.14);
+  border-color: rgba(198, 162, 87, 0.55);
+  box-shadow: 0 20px 40px -12px rgba(10, 26, 60, 0.16);
 }
 
-/* Soft card shadow */
+/* Thin gold rule — recurring luxury divider motif */
+.rule-gold {
+  border: 0;
+  block-size: 1px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    rgba(198, 162, 87, 0.75),
+    transparent
+  );
+}
+
+/* ============================================================
+   ELEVATION
+   ============================================================ */
+
 .shadow-soft {
-  box-shadow: 0 4px 20px -2px rgba(16, 18, 43, 0.05), 0 2px 6px -1px rgba(16, 18, 43, 0.03);
+  box-shadow:
+    0 4px 20px -2px rgba(11, 20, 37, 0.06),
+    0 2px 6px -1px rgba(11, 20, 37, 0.04);
 }
 
 .shadow-soft-lg {
-  box-shadow: 0 20px 45px -8px rgba(33, 81, 245, 0.12), 0 8px 20px -4px rgba(16, 18, 43, 0.05);
+  box-shadow:
+    0 20px 45px -8px rgba(10, 26, 60, 0.14),
+    0 8px 20px -4px rgba(11, 20, 37, 0.06);
 }
 
-.shadow-blue-glow {
-  box-shadow: 0 10px 30px -5px rgba(33, 81, 245, 0.3);
+.shadow-navy-glow {
+  box-shadow: 0 10px 30px -5px rgba(10, 26, 60, 0.32);
 }
 
-.shadow-magenta-glow {
-  box-shadow: 0 10px 30px -5px rgba(229, 56, 158, 0.3);
+.shadow-gold-glow {
+  box-shadow: 0 10px 30px -5px rgba(198, 162, 87, 0.42);
 }
 
 /* Gradient border trick: padded wrapper + inner surface */
@@ -139,6 +241,10 @@
 .gradient-border > * {
   border-radius: inherit;
 }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
 
 /* Wave Path Drawing Animation */
 @keyframes drawWave {
@@ -157,7 +263,8 @@
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.4;
     transform: scale(1);
   }
@@ -173,7 +280,8 @@
 
 /* Slow ambient drift for background blobs */
 @keyframes blobFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   33% {
@@ -202,7 +310,8 @@
   animation: spinSlow 18s linear infinite;
 }
 
-/* Shimmer sweep for premium button/card highlight */
+/* Shimmer sweep for premium button/card highlight.
+   Uses logical inset so the sweep direction follows text direction. */
 @keyframes shimmerSweep {
   0% {
     transform: translateX(-120%) skewX(-15deg);
@@ -215,15 +324,21 @@
 .animate-shimmer::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 40%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 40%;
+  block-size: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
   animation: shimmerSweep 3.2s ease-in-out infinite;
 }
 
-/* Continuous Marquee Animation */
+/* Continuous Marquee Animation.
+   RTL flips the travel direction so logos still scroll "forward". */
 @keyframes marquee {
   0% {
     transform: translateX(0%);
@@ -242,3 +357,52 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+[dir="rtl"] .animate-marquee {
+  animation-direction: reverse;
+}
+
+/* ============================================================
+   ALTERNATE PALETTES — swap the @theme values above with one of
+   these blocks to change the whole site. Kept here for review.
+
+   OPTION A — Deep Emerald & Brass
+     --color-primary:      #0B3B2E
+     --color-primary-mid:  #146B4F
+     --color-primary-deep: #05231A
+     --color-primary-wash: #EAF2EE
+     --color-primary-light:#CFE2D9
+     --color-gold:         #C9A227
+     --color-gold-hover:   #A9871C
+     --color-gold-deep:    #7C6318
+     --color-gold-wash:    #F6EDCF
+     --color-gold-light:   #E8D08A
+     --color-surface:      #F7F3EA
+     --color-surface-alt:  #EFE9DA
+     --color-card:         #FFFDF8
+     --color-ink:          #10201A
+     --color-ink-muted:    #4A5D54
+     --color-ink-light:    #6B7C73
+     --color-hairline:     #E5DCC9
+     --color-border-subtle:#D6CBB4
+
+   OPTION C — Obsidian & Rose Brass
+     --color-primary:      #101613
+     --color-primary-mid:  #0E4D42
+     --color-primary-deep: #060A08
+     --color-primary-wash: #E9EFEC
+     --color-primary-light:#C9D8D2
+     --color-gold:         #B98A5E
+     --color-gold-hover:   #9C7048
+     --color-gold-deep:    #7A5636
+     --color-gold-wash:    #F1E4D6
+     --color-gold-light:   #D9B48F
+     --color-surface:      #EFE7DA
+     --color-surface-alt:  #E5DACA
+     --color-card:         #FBF8F3
+     --color-ink:          #0C120F
+     --color-ink-muted:    #55605A
+     --color-ink-light:    #78827C
+     --color-hairline:     #DED3C2
+     --color-border-subtle:#CDBFA8
+   ============================================================ */

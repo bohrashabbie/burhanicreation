@@ -19,20 +19,20 @@ export default function ProjectsPage() {
     <div className="space-y-0 pt-28">
       
       {/* Hero Header */}
-      <section className="py-20 bg-gradient-to-b from-[#F6F7FF] via-[#EAF0FF]/30 to-[#F6F7FF] border-b border-[#E3E6F7]">
+      <section className="py-20 bg-gradient-to-b from-surface via-primary-wash/30 to-surface border-b border-hairline">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl space-y-6">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF0FF] text-[#2151F5] text-xs font-bold uppercase tracking-widest mx-auto">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-wash text-primary text-xs font-bold uppercase tracking-widest mx-auto">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Selected Case Studies</span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#10122B] tracking-tight leading-tight">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink tracking-tight leading-tight">
             Great design <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2151F5] via-[#7B3FF2] to-[#E5389E]">that works.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-mid to-gold">that works.</span>
           </h1>
 
-          <p className="text-[#4B4F72] text-lg sm:text-xl leading-relaxed">
+          <p className="text-ink-muted text-lg sm:text-xl leading-relaxed">
             Explore our showcase of mobile applications, custom websites, e-commerce storefronts, and brand identities crafted for businesses across Kuwait and the Gulf.
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function ProjectsPage() {
           </motion.div>
 
           {filteredProjects.length === 0 && (
-            <div className="py-16 text-center text-[#4B4F72]">
+            <div className="py-16 text-center text-ink-muted">
               No projects found in this category yet.
             </div>
           )}

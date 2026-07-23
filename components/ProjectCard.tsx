@@ -23,10 +23,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.3 }}
         onClick={() => setModalOpen(true)}
-        className="group bg-white rounded-3xl overflow-hidden border border-[#E3E6F7] shadow-soft cursor-pointer hover:shadow-soft-lg hover:border-[#2151F5]/40 transition-all duration-300 flex flex-col h-full"
+        className="group bg-white rounded-3xl overflow-hidden border border-hairline shadow-soft cursor-pointer hover:shadow-soft-lg hover:border-primary/40 transition-all duration-300 flex flex-col h-full"
       >
         {/* Image Container */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#F6F7FF]">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-surface">
           <Image
             src={project.image}
             alt={project.title}
@@ -34,16 +34,16 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#10122B]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[#10122B] text-xs font-bold shadow-md">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-ink text-xs font-bold shadow-md">
               <span>View Case Study</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#2151F5]" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-primary" />
             </span>
           </div>
 
           {/* Category Chip */}
           <div className="absolute top-4 left-4">
-            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#10122B] text-xs font-bold shadow-xs">
+            <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-ink text-xs font-bold shadow-xs">
               {project.category}
             </span>
           </div>
@@ -52,21 +52,21 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         {/* Content Body */}
         <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
           <div>
-            <div className="flex items-center justify-between text-xs text-[#6C7099] font-medium mb-1.5">
+            <div className="flex items-center justify-between text-xs text-ink-light font-medium mb-1.5">
               <span>{project.client}</span>
               <span>{project.year}</span>
             </div>
-            <h3 className="font-display text-xl font-bold text-[#10122B] group-hover:text-[#2151F5] transition-colors leading-snug">
+            <h3 className="font-display text-xl font-bold text-ink group-hover:text-primary transition-colors leading-snug">
               {project.title}
             </h3>
-            <p className="mt-2 text-sm text-[#4B4F72] line-clamp-2 leading-relaxed">
+            <p className="mt-2 text-sm text-ink-muted line-clamp-2 leading-relaxed">
               {project.summary}
             </p>
           </div>
 
-          <div className="pt-3 border-t border-[#E3E6F7] flex flex-wrap gap-1.5">
+          <div className="pt-3 border-t border-hairline flex flex-wrap gap-1.5">
             {project.deliverables.map((item, idx) => (
-              <span key={idx} className="px-2.5 py-1 rounded-md bg-[#F6F7FF] text-[11px] font-medium text-[#4B4F72] border border-[#E3E6F7]">
+              <span key={idx} className="px-2.5 py-1 rounded-md bg-surface text-[11px] font-medium text-ink-muted border border-hairline">
                 {item}
               </span>
             ))}
@@ -83,7 +83,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setModalOpen(false)}
-              className="absolute inset-0 bg-[#10122B]/70 backdrop-blur-sm"
+              className="absolute inset-0 bg-ink/70 backdrop-blur-sm"
             />
 
             <motion.div
@@ -91,12 +91,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.4 }}
-              className="relative w-full max-w-3xl bg-white rounded-3xl overflow-hidden border border-[#E3E6F7] shadow-2xl z-10 max-h-[90vh] flex flex-col"
+              className="relative w-full max-w-3xl bg-white rounded-3xl overflow-hidden border border-hairline shadow-2xl z-10 max-h-[90vh] flex flex-col"
             >
               {/* Header Close */}
               <button
                 onClick={() => setModalOpen(false)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md text-[#10122B] hover:bg-white flex items-center justify-center shadow-md transition-colors"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md text-ink hover:bg-white flex items-center justify-center shadow-md transition-colors"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -112,7 +112,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 text-white">
-                    <span className="px-3 py-1 rounded-full bg-[#2151F5] text-xs font-bold uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-primary text-xs font-bold uppercase tracking-wider">
                       {project.category}
                     </span>
                     <h2 className="font-display text-2xl sm:text-3xl font-extrabold mt-2">
@@ -122,56 +122,56 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                 </div>
 
                 <div className="p-6 sm:p-8 space-y-6">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-[#F6F7FF] border border-[#E3E6F7] text-xs">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 rounded-2xl bg-surface border border-hairline text-xs">
                     <div>
-                      <span className="text-[#6C7099] block">Client</span>
-                      <span className="font-bold text-[#10122B]">{project.client}</span>
+                      <span className="text-ink-light block">Client</span>
+                      <span className="font-bold text-ink">{project.client}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#2151F5]" />
+                      <MapPin className="w-3.5 h-3.5 text-primary" />
                       <div>
-                        <span className="text-[#6C7099] block">Location</span>
-                        <span className="font-bold text-[#10122B]">{project.location}</span>
+                        <span className="text-ink-light block">Location</span>
+                        <span className="font-bold text-ink">{project.location}</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-[#2151F5]" />
+                      <Calendar className="w-3.5 h-3.5 text-primary" />
                       <div>
-                        <span className="text-[#6C7099] block">Year Delivered</span>
-                        <span className="font-bold text-[#10122B]">{project.year}</span>
+                        <span className="text-ink-light block">Year Delivered</span>
+                        <span className="font-bold text-ink">{project.year}</span>
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <h3 className="font-display text-lg font-bold text-[#10122B] mb-2">
+                    <h3 className="font-display text-lg font-bold text-ink mb-2">
                       Project Overview
                     </h3>
-                    <p className="text-[#4B4F72] text-sm leading-relaxed">
+                    <p className="text-ink-muted text-sm leading-relaxed">
                       {project.summary}
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="text-xs uppercase tracking-widest font-bold text-[#2151F5] mb-3">
+                    <h4 className="text-xs uppercase tracking-widest font-bold text-gold-deep mb-3">
                       Key Deliverables & Scope
                     </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {project.deliverables.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm text-[#10122B]">
-                          <CheckCircle2 className="w-4 h-4 text-[#2151F5]" />
+                        <div key={idx} className="flex items-center gap-2 text-sm text-ink">
+                          <CheckCircle2 className="w-4 h-4 text-primary" />
                           <span>{item}</span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="pt-4 border-t border-[#E3E6F7] flex items-center justify-between">
-                    <span className="text-xs text-[#6C7099]">Burhani Creation Hawally Case Study</span>
+                  <div className="pt-4 border-t border-hairline flex items-center justify-between">
+                    <span className="text-xs text-ink-light">Burhani Creation Hawally Case Study</span>
                     <a
                       href="#request-quote"
                       onClick={() => setModalOpen(false)}
-                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2151F5] to-[#E5389E] text-white text-xs font-bold hover:shadow-md hover:shadow-[#E5389E]/25 transition-all"
+                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-gold text-white text-xs font-bold hover:shadow-md hover:shadow-gold/25 transition-all"
                     >
                       Request Similar Project
                     </a>

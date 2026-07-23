@@ -48,15 +48,15 @@ export default function HeroWave() {
   const slide = heroSlides[activeSlideIndex];
 
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#F6F7FF] via-[#F6F7FF] to-[#EAF0FF]/30 bg-mesh-brand">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-surface via-surface to-primary-wash/30 bg-mesh-brand">
 
       {/* Fine grid texture for depth */}
       <div className="absolute inset-0 bg-grid-pattern [mask-image:radial-gradient(ellipse_70%_60%_at_50%_0%,black,transparent)] pointer-events-none" />
 
       {/* Background Ambient Gradient Blobs (blue + magenta) */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#2151F5]/8 rounded-full blur-3xl pointer-events-none animate-blob-float" />
-      <div className="absolute top-1/3 right-10 w-[420px] h-[420px] bg-[#E5389E]/12 rounded-full blur-3xl pointer-events-none animate-blob-float" style={{ animationDelay: "-6s" }} />
-      <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-[#7B3FF2]/10 rounded-full blur-3xl pointer-events-none animate-blob-float" style={{ animationDelay: "-3s" }} />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/8 rounded-full blur-3xl pointer-events-none animate-blob-float" />
+      <div className="absolute top-1/3 right-10 w-[420px] h-[420px] bg-gold/12 rounded-full blur-3xl pointer-events-none animate-blob-float" style={{ animationDelay: "-6s" }} />
+      <div className="absolute bottom-0 left-10 w-[300px] h-[300px] bg-primary-mid/10 rounded-full blur-3xl pointer-events-none animate-blob-float" style={{ animationDelay: "-3s" }} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -70,13 +70,13 @@ export default function HeroWave() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF0FF] border border-[#2151F5]/20 text-[#2151F5] text-xs font-bold uppercase tracking-wider shadow-xs"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-wash border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider shadow-xs"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>{slide.badge}</span>
               </motion.div>
 
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-[#E3E6F7] text-[11px] font-semibold text-[#10122B]">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-hairline text-[11px] font-semibold text-ink">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                 <span>Available for Q3/Q4 2026 Kuwait Projects</span>
               </div>
@@ -93,13 +93,13 @@ export default function HeroWave() {
                   transition={{ duration: 0.4 }}
                   className="space-y-4"
                 >
-                  <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#10122B] tracking-tight leading-[1.08]">
+                  <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold text-ink tracking-tight leading-[1.08]">
                     {slide.headline.split(" ").map((word, i) => (
                       <span
                         key={i}
                         className={
                           i >= slide.headline.split(" ").length - 2
-                            ? "text-transparent bg-clip-text bg-gradient-to-r from-[#2151F5] via-[#7B3FF2] to-[#E5389E]"
+                            ? "text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-mid to-gold"
                             : ""
                         }
                       >
@@ -108,7 +108,7 @@ export default function HeroWave() {
                     ))}
                   </h1>
 
-                  <p className="text-[#4B4F72] text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
+                  <p className="text-ink-muted text-lg sm:text-xl font-normal leading-relaxed max-w-2xl">
                     {slide.subtext}
                   </p>
                 </motion.div>
@@ -119,7 +119,7 @@ export default function HeroWave() {
             <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <Link
                 href={slide.ctaHref}
-                className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#2151F5] via-[#5A3FE0] to-[#E5389E] bg-[length:180%_100%] bg-left text-white font-bold text-base shadow-lg shadow-[#2151F5]/25 hover:bg-right hover:shadow-xl hover:shadow-[#E5389E]/35 transition-all duration-500 active:scale-95 overflow-hidden"
+                className="relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-primary via-primary-mid to-gold bg-[length:180%_100%] bg-left text-white font-bold text-base shadow-lg shadow-primary/25 hover:bg-right hover:shadow-xl hover:shadow-gold/35 transition-all duration-500 active:scale-95 overflow-hidden"
               >
                 <span>{slide.ctaText}</span>
                 <ArrowRight className="w-5 h-5" />
@@ -127,16 +127,16 @@ export default function HeroWave() {
 
               <Link
                 href="/projects"
-                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white border border-[#E3E6F7] text-[#10122B] font-semibold text-base shadow-xs hover:border-[#2151F5]/40 hover:bg-[#F6F7FF] transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-white border border-hairline text-ink font-semibold text-base shadow-xs hover:border-primary/40 hover:bg-surface transition-all duration-200"
               >
                 <span>View Portfolio</span>
-                <ChevronRight className="w-4 h-4 text-[#4B4F72]" />
+                <ChevronRight className="w-4 h-4 text-ink-muted" />
               </Link>
             </div>
 
             {/* Slide Switcher Controls */}
             <div className="pt-6 flex items-center gap-3">
-              <span className="text-xs uppercase tracking-widest text-[#6C7099] font-semibold">
+              <span className="text-xs uppercase tracking-widest text-ink-light font-semibold">
                 Explore Focus:
               </span>
               <div className="flex items-center gap-2">
@@ -146,8 +146,8 @@ export default function HeroWave() {
                     onClick={() => setActiveSlideIndex(idx)}
                     className={`h-2.5 rounded-full transition-all duration-300 ${
                       activeSlideIndex === idx
-                        ? "w-8 bg-[#2151F5]"
-                        : "w-2.5 bg-[#E3E6F7] hover:bg-[#2151F5]/40"
+                        ? "w-8 bg-primary"
+                        : "w-2.5 bg-hairline hover:bg-primary/40"
                     }`}
                     aria-label={`Switch to slide ${idx + 1}`}
                   />
@@ -160,31 +160,31 @@ export default function HeroWave() {
           {/* Right Visual Card with Signature Wave Motion */}
           <div className="lg:col-span-5 relative">
             {/* Ambient glow ring behind card */}
-            <div className="absolute -inset-4 bg-gradient-to-br from-[#2151F5]/20 via-[#7B3FF2]/15 to-[#E5389E]/20 rounded-[2rem] blur-2xl opacity-70 pointer-events-none" />
+            <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-primary-mid/15 to-gold/20 rounded-[2rem] blur-2xl opacity-70 pointer-events-none" />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative rounded-3xl bg-white p-8 border border-[#E3E6F7] shadow-soft-lg overflow-hidden group"
+              className="relative rounded-3xl bg-white p-8 border border-hairline shadow-soft-lg overflow-hidden group"
             >
               {/* Top edge brand gradient accent */}
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#2151F5] via-[#7B3FF2] to-[#E5389E]" />
+              <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-primary via-primary-mid to-gold" />
               {/* Top Card Badge */}
-              <div className="flex items-center justify-between pb-6 border-b border-[#E3E6F7]">
+              <div className="flex items-center justify-between pb-6 border-b border-hairline">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#EAF0FF] text-[#2151F5] flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-primary-wash text-primary flex items-center justify-center">
                     <slide.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="font-display font-bold text-[#10122B] text-base">
+                    <h3 className="font-display font-bold text-ink text-base">
                       Burhani Studio
                     </h3>
-                    <p className="text-xs text-[#4B4F72]">Hawally, Kuwait</p>
+                    <p className="text-xs text-ink-muted">Hawally, Kuwait</p>
                   </div>
                 </div>
 
-                <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#FDEAF7] to-[#EAF0FF] border border-[#E5389E]/15 text-[#10122B] text-xs font-semibold">
+                <span className="px-3 py-1 rounded-full bg-gradient-to-r from-gold-wash to-primary-wash border border-gold/15 text-ink text-xs font-semibold">
                   {slide.accentTag}
                 </span>
               </div>
@@ -195,9 +195,9 @@ export default function HeroWave() {
                   <svg className="w-full h-full" viewBox="0 0 300 80" fill="none">
                     <defs>
                       <linearGradient id="heroWaveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#2151F5" />
-                        <stop offset="55%" stopColor="#7B3FF2" />
-                        <stop offset="100%" stopColor="#E5389E" />
+                        <stop offset="0%" stopColor="#0A1A3C" />
+                        <stop offset="55%" stopColor="#16305F" />
+                        <stop offset="100%" stopColor="#C6A257" />
                       </linearGradient>
                     </defs>
                     <path
@@ -209,7 +209,7 @@ export default function HeroWave() {
                     />
                     <path
                       d="M10 55 Q75 25 150 55 T290 55"
-                      stroke="#E5389E"
+                      stroke="#C6A257"
                       strokeWidth="3"
                       strokeLinecap="round"
                       opacity="0.35"
@@ -217,23 +217,23 @@ export default function HeroWave() {
                   </svg>
                 </div>
 
-                <p className="font-display text-2xl font-bold text-[#10122B]">
+                <p className="font-display text-2xl font-bold text-ink">
                   "Think Beyond the Wave."
                 </p>
-                <p className="text-xs text-[#4B4F72] max-w-xs mx-auto">
+                <p className="text-xs text-ink-muted max-w-xs mx-auto">
                   Transforming Gulf businesses with forward-thinking digital design & engineering.
                 </p>
               </div>
 
               {/* Bottom Quick Metric Card */}
-              <div className="pt-6 border-t border-[#E3E6F7] grid grid-cols-2 gap-4 text-left">
-                <div className="p-3.5 rounded-2xl bg-[#F6F7FF] border border-[#E3E6F7]">
-                  <span className="text-xs text-[#4B4F72] block">Delivered Projects</span>
-                  <span className="font-display text-xl font-extrabold text-[#2151F5]">170+</span>
+              <div className="pt-6 border-t border-hairline grid grid-cols-2 gap-4 text-start">
+                <div className="p-3.5 rounded-2xl bg-surface border border-hairline">
+                  <span className="text-xs text-ink-muted block">Delivered Projects</span>
+                  <span className="font-display text-xl font-extrabold text-primary">170+</span>
                 </div>
-                <div className="p-3.5 rounded-2xl bg-[#F6F7FF] border border-[#E3E6F7]">
-                  <span className="text-xs text-[#4B4F72] block">Client Rating</span>
-                  <span className="font-display text-xl font-extrabold text-[#E5389E]">4.9 / 5.0</span>
+                <div className="p-3.5 rounded-2xl bg-surface border border-hairline">
+                  <span className="text-xs text-ink-muted block">Client Rating</span>
+                  <span className="font-display text-xl font-extrabold text-gold-deep">4.9 / 5.0</span>
                 </div>
               </div>
 

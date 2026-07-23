@@ -9,7 +9,7 @@ const statIcons = [Award, CheckCircle, Star, Clock];
 
 export default function StatCounter() {
   return (
-    <section className="py-16 bg-[#F6F7FF] border-b border-[#E3E6F7]">
+    <section className="py-16 bg-surface border-b border-hairline">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
           {siteConfig.stats.map((stat, idx) => {
@@ -21,16 +21,16 @@ export default function StatCounter() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E3E6F7] shadow-soft hover:border-[#2151F5]/30 transition-all duration-300 group text-center sm:text-left"
+                className="bg-white p-6 sm:p-8 rounded-3xl border border-hairline shadow-soft hover:border-primary/30 transition-all duration-300 group text-center sm:text-start"
               >
-                <div className="w-12 h-12 rounded-2xl bg-[#EAF0FF] text-[#2151F5] flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
+                <div className="w-12 h-12 rounded-2xl bg-primary-wash text-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 mx-auto sm:mx-0">
                   <Icon className="w-6 h-6" />
                 </div>
-                <div className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#10122B] tracking-tight">
+                <div className="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold text-ink tracking-tight">
                   {stat.value}
-                  <span className="text-[#2151F5]">{stat.suffix}</span>
+                  <span className="text-primary">{stat.suffix}</span>
                 </div>
-                <p className="mt-2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#4B4F72]">
+                <p className="mt-2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-ink-muted">
                   {stat.label}
                 </p>
               </motion.div>

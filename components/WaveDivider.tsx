@@ -20,11 +20,11 @@ export default function WaveDivider({ className = "", flip = false }: WaveDivide
       >
         <motion.path
           d="M0 30C150 10 350 50 600 30C850 10 1050 50 1200 30V60H0V30Z"
-          fill="#F6F7FF"
+          fill="#FAF7F0"
         />
         <motion.path
           d="M0 30C150 10 350 50 600 30C850 10 1050 50 1200 30"
-          stroke="#2151F5"
+          stroke="#0A1A3C"
           strokeWidth="1.5"
           strokeOpacity="0.3"
           initial={{ pathLength: 0, opacity: 0 }}
