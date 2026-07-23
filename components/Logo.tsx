@@ -15,38 +15,39 @@ export default function Logo({
   showText = true,
 }: LogoProps) {
   const dimensions = {
-    sm: { container: 38, text: "text-base", subtext: "text-[9px]" },
-    md: { container: 46, text: "text-lg", subtext: "text-[10px]" },
-    lg: { container: 60, text: "text-2xl", subtext: "text-xs" },
+    sm: { symbol: 30, text: "text-sm", subtext: "text-[7px]" },
+    md: { symbol: 38, text: "text-base", subtext: "text-[8px]" },
+    lg: { symbol: 50, text: "text-xl", subtext: "text-[10px]" },
   }[size];
 
-  const textColor = variant === "dark" ? "text-white" : "text-slate-900";
-  const subtextColor = variant === "dark" ? "text-brand-light font-semibold" : "text-brand font-bold";
+  const isDark = variant === "dark";
+  const textColor = isDark ? "text-white" : "text-slate-700";
+  const subtextColor = isDark ? "text-brand-light" : "text-brand";
 
   return (
-    <div className={`flex items-center gap-3 group select-none ${className}`}>
-      {/* Circular brand emblem */}
-      <div
-        className="relative shrink-0 rounded-full overflow-hidden shadow-sm ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105"
-        style={{ width: dimensions.container, height: dimensions.container }}
-      >
-        <Image
-          src="/logo-bc.png"
-          alt="Burhani Creation logo"
-          width={120}
-          height={120}
-          className="object-cover w-full h-full"
-          priority
-        />
-      </div>
+    <div className={`flex items-center gap-2.5 group select-none ${className}`}>
+      {/* Brand symbol — the interlocking B/C mark */}
+      <Image
+        src={isDark ? "/logo-symbol-dark.png" : "/logo-symbol.png"}
+        alt="Burhani Creation logo"
+        width={399}
+        height={439}
+        className="shrink-0 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+        style={{ height: dimensions.symbol }}
+        priority
+      />
 
       {showText && (
-        <div className="flex flex-col leading-tight">
-          <span className={`font-display font-extrabold tracking-tight ${dimensions.text} ${textColor}`}>
-            Burhani<span className="text-brand">.</span>Creation
+        <div className="flex flex-col justify-center leading-none">
+          <span
+            className={`font-display font-bold uppercase tracking-[0.08em] ${dimensions.text} ${textColor}`}
+          >
+            Burhani Creation
           </span>
-          <span className={`uppercase tracking-[0.18em] ${dimensions.subtext} ${subtextColor}`}>
-            Digital Agency
+          <span
+            className={`uppercase font-semibold tracking-[0.3em] mt-1 ${dimensions.subtext} ${subtextColor}`}
+          >
+            Think Beyond the Wave
           </span>
         </div>
       )}
