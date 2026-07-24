@@ -10,7 +10,12 @@ function getLocale(request: NextRequest): string {
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const host = request.headers.get("host") || "";
+  const host = request.headers.get("x-forwarded-host") || request.headers.get("host") || "";
+
+  // If already rewritten by internal proxy pass, allow Next.js to render
+  if (request.headers.get("x-cms-rewritten") === "true") {
+    return NextResponse.next();
+  }
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-pathname", pathname);
@@ -18,17 +23,11 @@ export function proxy(request: NextRequest) {
 
   // 1. Subdomain routing: cms.domain.com or cms.localhost:3000
   if (host.startsWith("cms.")) {
-    // If the URL explicitly contains /cms (e.g. cms.localhost:3000/cms/login), clean it up
-    if (pathname.startsWith("/cms")) {
-      const cleanPath = pathname.replace(/^\/cms/, "") || "/";
-      const url = request.nextUrl.clone();
-      url.pathname = cleanPath;
-      return NextResponse.redirect(url);
-    }
-    // Rewrite cms.domain.com/login -> /cms/login
-    // Rewrite cms.domain.com/ -> /cms
+    requestHeaders.set("x-cms-rewritten", "true");
     const url = request.nextUrl.clone();
-    url.pathname = `/cms${pathname === "/" ? "" : pathname}`;
+    if (!pathname.startsWith("/cms")) {
+      url.pathname = `/cms${pathname === "/" ? "" : pathname}`;
+    }
     return NextResponse.rewrite(url, { headers: requestHeaders });
   }
 
