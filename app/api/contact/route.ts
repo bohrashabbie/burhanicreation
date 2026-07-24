@@ -22,6 +22,7 @@ export async function POST(request: Request) {
     const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
+      replyTo: `${fullName.trim()} <${email.trim()}>`,
       subject: `📩 New Contact Message from ${fullName.trim()}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e5e7eb; border-radius: 8px;">

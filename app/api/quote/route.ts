@@ -19,6 +19,9 @@ export async function POST(request: Request) {
     const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
+      ...(email && typeof email === "string" && email.trim()
+        ? { replyTo: `${fullName.trim()} <${email.trim()}>` }
+        : {}),
       subject: `🚀 New Quotation Request from ${fullName.trim()} — ${service ?? "General Inquiry"}`,
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e5e7eb; border-radius: 8px;">

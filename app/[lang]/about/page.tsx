@@ -11,6 +11,10 @@ import Reveal from "@/components/ui/Reveal";
 import { siteConfig } from "@/data/site";
 import { getDictionary, isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 
+// Rendered on-demand (StatCounter reads live CMS data) so the build does not
+// require DATABASE_URL, which is only present at runtime, not during docker build.
+export const dynamic = "force-dynamic";
+
 const studioImages = [
   "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop",

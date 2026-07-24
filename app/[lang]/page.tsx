@@ -16,6 +16,10 @@ import { Star } from "lucide-react";
 import { prisma } from "@/lib/db";
 import type { ProjectCategory } from "@/data/projects"; // we keep types in data for now
 
+// Rendered on-demand so live CMS content is always fresh and the build does not
+// require DATABASE_URL (which is only present at runtime, not during docker build).
+export const dynamic = "force-dynamic";
+
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: rawLang } = await params;
   const lang: Locale = isLocale(rawLang) ? rawLang : defaultLocale;

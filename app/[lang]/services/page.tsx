@@ -18,6 +18,10 @@ const serviceIcons: Record<string, React.ElementType> = {
   LayoutGrid,
 };
 
+// Rendered on-demand so live CMS content is always fresh and the build does not
+// require DATABASE_URL (which is only present at runtime, not during docker build).
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang: rawLang } = await params;
   const lang: Locale = isLocale(rawLang) ? rawLang : defaultLocale;
