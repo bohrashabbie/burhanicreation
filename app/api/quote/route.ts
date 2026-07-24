@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mg, MAILGUN_DOMAIN, NOTIFY_TO, FROM } from "@/lib/mailer";
+import { getMailer, NOTIFY_TO, FROM } from "@/lib/mailer";
 import { prisma } from "@/lib/db";
 
 export async function POST(request: Request) {
@@ -15,8 +15,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Phone number is required." }, { status: 400 });
     }
 
-    // Send email via Mailgun
-    await mg.messages.create(MAILGUN_DOMAIN, {
+    // Send email via Resend
+    const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
       subject: `🚀 New Quotation Request from ${fullName.trim()} — ${service ?? "General Inquiry"}`,
@@ -53,7 +53,15 @@ export async function POST(request: Request) {
       `,
     });
 
-    console.log("--> Mailgun email sent (quote):", fullName, service);
+    if (emailError) {
+      console.error("Resend email error (quote):", emailError);
+      return NextResponse.json(
+        { error: "Failed to send your request. Please try again." },
+        { status: 502 }
+      );
+    }
+
+    console.log("--> Resend email sent (quote):", fullName, service);
 
     // Save lead to database
     await prisma.quoteLead.create({

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { mg, MAILGUN_DOMAIN, NOTIFY_TO, FROM } from "@/lib/mailer";
+import { getMailer, NOTIFY_TO, FROM } from "@/lib/mailer";
 import { prisma } from "@/lib/db";
 
 export async function POST(request: Request) {
@@ -18,8 +18,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email address is required." }, { status: 400 });
     }
 
-    // Send email via Mailgun
-    await mg.messages.create(MAILGUN_DOMAIN, {
+    // Send email via Resend
+    const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
       subject: `📩 New Contact Message from ${fullName.trim()}`,
@@ -52,7 +52,15 @@ export async function POST(request: Request) {
       `,
     });
 
-    console.log("--> Mailgun email sent (contact):", fullName, email);
+    if (emailError) {
+      console.error("Resend email error (contact):", emailError);
+      return NextResponse.json(
+        { error: "Failed to send your message. Please try again." },
+        { status: 502 }
+      );
+    }
+
+    console.log("--> Resend email sent (contact):", fullName, email);
 
     // Save lead to database
     await prisma.contactLead.create({
