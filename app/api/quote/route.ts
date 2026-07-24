@@ -15,8 +15,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Phone number is required." }, { status: 400 });
     }
 
-    // Send email via Resend
-    const { error: emailError } = await getMailer().emails.send({
+    // Save lead to database FIRST — this is the source of truth for the CMS.
+    // Email delivery is a best-effort notification and must never block the
+    // submission from reaching the CMS.
+    await prisma.quoteLead.create({
+      data: {
+        fullName: fullName.trim(),
+        countryCode: countryCode ?? null,
+        phone: phone.trim(),
+        email: email ? email.trim() : null,
+        service: service ?? null,
+        details: details ? details.trim() : null,
+      },
+    });
+
+    // Send email via Resend (best-effort — failures are logged, not fatal)
+    try {
+      const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
       ...(email && typeof email === "string" && email.trim()
@@ -56,27 +71,14 @@ export async function POST(request: Request) {
       `,
     });
 
-    if (emailError) {
-      console.error("Resend email error (quote):", emailError);
-      return NextResponse.json(
-        { error: "Failed to send your request. Please try again." },
-        { status: 502 }
-      );
+      if (emailError) {
+        console.error("Resend email error (quote):", emailError);
+      } else {
+        console.log("--> Resend email sent (quote):", fullName, service);
+      }
+    } catch (mailErr) {
+      console.error("Resend notification failed (quote):", mailErr);
     }
-
-    console.log("--> Resend email sent (quote):", fullName, service);
-
-    // Save lead to database
-    await prisma.quoteLead.create({
-      data: {
-        fullName: fullName.trim(),
-        countryCode: countryCode ?? null,
-        phone: phone.trim(),
-        email: email ? email.trim() : null,
-        service: service ?? null,
-        details: details ? details.trim() : null,
-      },
-    });
 
     return NextResponse.json(
       { success: true, message: "Your quotation request has been received by Burhani Creation. We will reach out shortly." },

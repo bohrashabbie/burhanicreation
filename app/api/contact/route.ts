@@ -18,8 +18,22 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Email address is required." }, { status: 400 });
     }
 
-    // Send email via Resend
-    const { error: emailError } = await getMailer().emails.send({
+    // Save lead to database FIRST — this is the source of truth for the CMS.
+    // Email delivery is a best-effort notification and must never block the
+    // submission from reaching the CMS.
+    await prisma.contactLead.create({
+      data: {
+        fullName: fullName.trim(),
+        countryCode: countryCode ?? null,
+        phone: phone.trim(),
+        email: email.trim(),
+        message: message ? message.trim() : null,
+      },
+    });
+
+    // Send email via Resend (best-effort — failures are logged, not fatal)
+    try {
+      const { error: emailError } = await getMailer().emails.send({
       from: FROM,
       to: NOTIFY_TO,
       replyTo: `${fullName.trim()} <${email.trim()}>`,
@@ -53,26 +67,14 @@ export async function POST(request: Request) {
       `,
     });
 
-    if (emailError) {
-      console.error("Resend email error (contact):", emailError);
-      return NextResponse.json(
-        { error: "Failed to send your message. Please try again." },
-        { status: 502 }
-      );
+      if (emailError) {
+        console.error("Resend email error (contact):", emailError);
+      } else {
+        console.log("--> Resend email sent (contact):", fullName, email);
+      }
+    } catch (mailErr) {
+      console.error("Resend notification failed (contact):", mailErr);
     }
-
-    console.log("--> Resend email sent (contact):", fullName, email);
-
-    // Save lead to database
-    await prisma.contactLead.create({
-      data: {
-        fullName: fullName.trim(),
-        countryCode: countryCode ?? null,
-        phone: phone.trim(),
-        email: email.trim(),
-        message: message ? message.trim() : null,
-      },
-    });
 
     return NextResponse.json(
       { success: true, message: "Thank you for contacting Burhani Creation. We have received your message." },
