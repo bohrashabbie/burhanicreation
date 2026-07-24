@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Projects ───────────────────────────────────────────────────────────────
+model Project {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  category     String   // "Branding" | "Web" | "App" | "E-commerce" | "AI"
+  client       String
+  location     String
+  year         String
+  image        String
+  titleEn      String
+  titleAr      String
+  summaryEn    String   @db.Text
+  summaryAr    String   @db.Text
+  // JSON arrays for bilingual lists
+  deliverablesEn Json   // string[]
+  deliverablesAr Json   // string[]
+  featured     Boolean  @default(false)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("projects")
+}
+
+// ─── Services ───────────────────────────────────────────────────────────────
+model Service {
+  id                  String   @id @default(cuid())
+  slug                String   @unique
+  iconName            String
+  image               String
+  accent              String
+  titleEn             String
+  titleAr             String
+  taglineEn           String
+  taglineAr           String
+  descriptionEn       String   @db.Text
+  descriptionAr       String   @db.Text
+  fullDescriptionEn   String   @db.Text
+  fullDescriptionAr   String   @db.Text
+  deliverablesEn      Json     // string[]
+  deliverablesAr      Json     // string[]
+  featuresEn          Json     // string[]
+  featuresAr          Json     // string[]
+  techStack           Json     // string[]
+  sortOrder           Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  @@map("services")
+}
+
+// ─── Testimonials ────────────────────────────────────────────────────────────
+model Testimonial {
+  id        String   @id @default(cuid())
+  author    String
+  roleEn    String
+  roleAr    String
+  company   String
+  location  String
+  quoteEn   String   @db.Text
+  quoteAr   String   @db.Text
+  rating    Int      @default(5)
+  featured  Boolean  @default(false)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+// ─── Clients ─────────────────────────────────────────────────────────────────
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  industryEn  String
+  industryAr  String
+  symbol      String
+  logoUrl     String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("clients")
+}
+
+// ─── Contact Leads ───────────────────────────────────────────────────────────
+model ContactLead {
+  id          String   @id @default(cuid())
+  fullName    String
+  countryCode String?
+  phone       String
+  email       String
+  message     String?  @db.Text
+  status      String   @default("new") // "new" | "contacted" | "closed"
+  createdAt   DateTime @default(now())
+
+  @@map("contact_leads")
+}
+
+// ─── Quote Leads ─────────────────────────────────────────────────────────────
+model QuoteLead {
+  id          String   @id @default(cuid())
+  fullName    String
+  countryCode String?
+  phone       String
+  email       String?
+  service     String?
+  details     String?  @db.Text
+  status      String   @default("new") // "new" | "contacted" | "closed"
+  createdAt   DateTime @default(now())
+
+  @@map("quote_leads")
+}
+
+// ─── Site Settings ───────────────────────────────────────────────────────────
+model SiteSetting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+// ─── CMS Sessions ────────────────────────────────────────────────────────────
+model CmsSession {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("cms_sessions")
+}

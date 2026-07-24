@@ -8,21 +8,44 @@ import ServicesSlider from "@/components/ServicesSlider";
 import ProjectCard from "@/components/ProjectCard";
 import StatCounter from "@/components/StatCounter";
 import Reveal from "@/components/ui/Reveal";
-import { projectsData } from "@/data/projects";
-import { testimonialsData } from "@/data/testimonials";
 import { getDictionary, isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { Star } from "lucide-react";
+import { prisma } from "@/lib/db";
+import type { ProjectCategory } from "@/data/projects"; // we keep types in data for now
 
 export default async function HomePage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: rawLang } = await params;
   const lang: Locale = isLocale(rawLang) ? rawLang : defaultLocale;
   const dict = await getDictionary(lang);
 
-  const featuredProjects = projectsData.filter((p) => p.featured).slice(0, 3);
-  const featuredTestimonials = testimonialsData.filter((t) => t.featured);
+  const dbProjects = await prisma.project.findMany({ where: { featured: true }, orderBy: { sortOrder: 'asc' }, take: 3 });
+  const dbTestimonials = await prisma.testimonial.findMany({ where: { featured: true }, orderBy: { sortOrder: 'asc' } });
+  const dbClients = await prisma.client.findMany({ orderBy: { sortOrder: 'asc' } });
+
+  // Map to the format components expect
+  const featuredProjects = dbProjects.map(p => ({
+    ...p,
+    category: p.category as ProjectCategory,
+    title: { en: p.titleEn, ar: p.titleAr },
+    summary: { en: p.summaryEn, ar: p.summaryAr },
+    deliverables: { en: p.deliverablesEn as string[], ar: p.deliverablesAr as string[] }
+  }));
+
+  const featuredTestimonials = dbTestimonials.map(t => ({
+    ...t,
+    role: { en: t.roleEn, ar: t.roleAr },
+    quote: { en: t.quoteEn, ar: t.quoteAr }
+  }));
+
+  const clients = dbClients.map(c => ({
+    id: c.id,
+    symbol: c.symbol,
+    name: c.name,
+    industry: { en: c.industryEn || "", ar: c.industryAr || "" }
+  }));
 
   return (
     <div>
@@ -30,7 +53,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
 
       <AboutIntro lang={lang} dict={dict} />
 
-      <ClientMarquee lang={lang} heading={dict.home.clients.heading} />
+      <ClientMarquee lang={lang} heading={dict.home.clients.heading} clients={clients} />
 
       <FounderSection lang={lang} dict={dict} />
 

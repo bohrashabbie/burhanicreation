@@ -2,11 +2,11 @@ import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { CheckCircle2, Smartphone, Globe, ShoppingBag, Layout, Database, Sparkles, LayoutGrid } from "lucide-react";
-import { servicesData } from "@/data/services";
 import { getDictionary, isLocale, defaultLocale, type Locale } from "@/lib/i18n";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
+import { prisma } from "@/lib/db";
 
 const serviceIcons: Record<string, React.ElementType> = {
   Smartphone,
@@ -34,6 +34,19 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
   const dict = await getDictionary(lang);
   const { services } = dict;
 
+  const dbServices = await prisma.service.findMany({ orderBy: { sortOrder: 'asc' } });
+  
+  const formattedServices = dbServices.map(s => ({
+    ...s,
+    title: { en: s.titleEn, ar: s.titleAr },
+    tagline: { en: s.taglineEn, ar: s.taglineAr },
+    description: { en: s.descriptionEn, ar: s.descriptionAr },
+    fullDescription: { en: s.fullDescriptionEn, ar: s.fullDescriptionAr },
+    deliverables: { en: s.deliverablesEn as string[], ar: s.deliverablesAr as string[] },
+    features: { en: s.featuresEn as string[], ar: s.featuresAr as string[] },
+    techStack: s.techStack as string[],
+  }));
+
   return (
     <div className="pt-28">
       <section className="py-20 border-b border-hairline">
@@ -52,7 +65,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
 
       <section className="py-24 overflow-hidden">
         <Container className="space-y-16">
-          {servicesData.map((service, index) => {
+          {formattedServices.map((service, index) => {
             const Icon = serviceIcons[service.iconName] || Globe;
             const isEven = index % 2 === 0;
 

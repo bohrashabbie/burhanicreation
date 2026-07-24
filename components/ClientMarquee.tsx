@@ -1,11 +1,12 @@
 import React from "react";
-import { clientsData } from "@/data/clients";
 import type { Locale } from "@/lib/i18n";
 import Container from "@/components/ui/Container";
 
-export default function ClientMarquee({ lang, heading }: { lang: Locale; heading: string }) {
+export type MarqueeClient = { id: string; symbol: string; name: string; industry: { en: string; ar: string } };
+
+export default function ClientMarquee({ lang, heading, clients }: { lang: Locale; heading: string; clients: MarqueeClient[] }) {
   // Duplicate the list so the -50% keyframe lands seamlessly on the copy.
-  const track = [...clientsData, ...clientsData];
+  const track = [...clients, ...clients];
 
   return (
     <section className="py-14 bg-card border-y border-hairline overflow-hidden">
@@ -20,7 +21,7 @@ export default function ClientMarquee({ lang, heading }: { lang: Locale; heading
           {track.map((client, i) => (
             <div
               key={`${client.id}-${i}`}
-              aria-hidden={i >= clientsData.length}
+              aria-hidden={i >= clients.length}
               className="flex items-center gap-2.5 whitespace-nowrap text-ink-muted"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-hairline bg-surface font-display text-xs font-semibold text-ink">
