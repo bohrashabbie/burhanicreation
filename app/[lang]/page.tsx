@@ -26,7 +26,7 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
   const dbClients = await prisma.client.findMany({ orderBy: { sortOrder: 'asc' } });
 
   // Map to the format components expect
-  const featuredProjects = dbProjects.map(p => ({
+  const featuredProjects = dbProjects.map((p: any) => ({
     ...p,
     category: p.category as ProjectCategory,
     title: { en: p.titleEn, ar: p.titleAr },
@@ -34,13 +34,13 @@ export default async function HomePage({ params }: { params: Promise<{ lang: str
     deliverables: { en: p.deliverablesEn as string[], ar: p.deliverablesAr as string[] }
   }));
 
-  const featuredTestimonials = dbTestimonials.map(t => ({
+  const featuredTestimonials = dbTestimonials.map((t: any) => ({
     ...t,
     role: { en: t.roleEn, ar: t.roleAr },
     quote: { en: t.quoteEn, ar: t.quoteAr }
   }));
 
-  const clients = dbClients.map(c => ({
+  const clients = dbClients.map((c: any) => ({
     id: c.id,
     symbol: c.symbol,
     name: c.name,

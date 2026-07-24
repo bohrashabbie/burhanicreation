@@ -24,7 +24,7 @@ export default async function ProjectsPage({ params }: { params: Promise<{ lang:
 
   const dbProjects = await prisma.project.findMany({ orderBy: { sortOrder: 'asc' } });
   
-  const formattedProjects = dbProjects.map(p => ({
+  const formattedProjects = dbProjects.map((p: any) => ({
     ...p,
     category: p.category as ProjectCategory,
     title: { en: p.titleEn, ar: p.titleAr },

@@ -36,7 +36,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
 
   const dbServices = await prisma.service.findMany({ orderBy: { sortOrder: 'asc' } });
   
-  const formattedServices = dbServices.map(s => ({
+  const formattedServices = dbServices.map((s: any) => ({
     ...s,
     title: { en: s.titleEn, ar: s.titleAr },
     tagline: { en: s.taglineEn, ar: s.taglineAr },
@@ -102,7 +102,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
                         {services.includedScope}
                       </h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm text-ink">
-                        {service.deliverables[lang].map((item, i) => (
+                        {service.deliverables[lang].map((item: string, i: number) => (
                           <div key={i} className="flex items-center gap-2">
                             <CheckCircle2 className="w-4 h-4 text-ink-light shrink-0" />
                             <span>{item}</span>
@@ -113,7 +113,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
 
                     <div className="pt-4 border-t border-hairline flex flex-wrap items-center gap-2">
                       <span className="text-xs text-ink-light font-medium me-2">{services.technologies}:</span>
-                      {service.techStack.map((tech) => (
+                      {service.techStack.map((tech: string) => (
                         <span key={tech} className="px-3 py-1 rounded-md bg-surface text-xs text-ink border border-hairline">
                           {tech}
                         </span>
@@ -142,7 +142,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ lang:
                         {services.whyUs}
                       </h4>
                       <ul className="space-y-3 text-sm text-ink-muted">
-                        {service.features[lang].map((feat, fIdx) => (
+                        {service.features[lang].map((feat: string, fIdx: number) => (
                           <li key={fIdx} className="flex items-start gap-2.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-gold-deep shrink-0 mt-1.5" />
                             <span>{feat}</span>
